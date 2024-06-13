@@ -114,7 +114,7 @@ for n = 1:nsteps
     %%%% On the final model step (n = steps) we do not calculate the future reservoir sizes, hence the 'if' statement
     
     if n < nsteps
-        Atmospheric_CO2(n+1) = Atmospheric_CO2(n) + ( F_Soil_Respiration + F_Terrestrial_Biota_Respiration + F_Volcanic_CO2 - F_CO2_Exchange - F_Terrestrial_Photosynthesis ) * dt + 0.8 * Fossil_fuel_flux(n) + 0.75 * Land_use_change(n) ;
+        Atmospheric_CO2(n+1) = Atmospheric_CO2(n) + ( F_Soil_Respiration + F_Terrestrial_Biota_Respiration + F_Volcanic_CO2 - F_CO2_Exchange - F_Terrestrial_Photosynthesis + Fossil_fuel_flux(n) + 0.75 * Land_use_change(n) + 0.25 * Land_use_change(n) ) * dt   ;
 
         Surface_Ocean_DIC(n+1) = Surface_Ocean_DIC(n) + ( F_Ocean_Respiration + F_Upwelling + F_Runoff + F_CO2_Exchange - F_Downwelling - F_Ocean_Photosynthesis ) * dt ;
 
@@ -122,9 +122,9 @@ for n = 1:nsteps
 
         Ocean_Biota(n+1) = Ocean_Biota(n) + ( F_Ocean_Photosynthesis - F_Ocean_Respiration - F_Remineralization ) * dt ;
 
-        Terrestrial_Biota(n+1) = Terrestrial_Biota(n) + ( F_Terrestrial_Photosynthesis - F_Terrestrial_Biota_Respiration - F_Litter_Fall ) * dt ;
+        Terrestrial_Biota(n+1) = Terrestrial_Biota(n) + ( F_Terrestrial_Photosynthesis - F_Terrestrial_Biota_Respiration - F_Litter_Fall -  0.75 * Land_use_change(n)) * dt ;
 
-        Soil(n+1) = Soil(n) + ( F_Litter_Fall - F_Soil_Respiration - F_Runoff ) * dt + 0.25 * Land_use_change(n) + 0.2 * Fossil_fuel_flux(n) ;
+        Soil(n+1) = Soil(n) + ( F_Litter_Fall - F_Soil_Respiration - F_Runoff  - 0.25 * Land_use_change(n)) * dt ;
 
         %%%% Update model time 
         t(n+1) = t(n) + dt ;
