@@ -5,7 +5,7 @@
 
 function dy = Alcott_et_al_2024_NatGeo(t,y)
 % Set up dy array
-dy = zeros(22,1) ;
+dy = zeros(24,1) ;
 
 %%% Set up Global parameters
 global stepnumber
@@ -37,6 +37,20 @@ OP_DP = y(20) ;
 O2_A = y(21) ;
 A = y(22) ;
 Aiso = y(23) ;
+
+%%%% Nitrate ;
+NO3_P = y(24) ;
+% NO3_D
+% NO3_S
+% NO3_DP
+
+%%%% NH4
+% NH4_P
+% NH4_D
+% NH4_S
+% NH4_DP
+
+
 % Linear relationship for oxygen content in boxes in contact with atmosphere 
 O2_P = ( present.O2_P * ( O2_A / present.O2_A ) ) ;
 O2_S = ( present.O2_S * ( O2_A / present.O2_A ) ) ;
@@ -76,8 +90,13 @@ OP_Pconc  = y(14)/y(1);
 SRP_DPconc = y(19)/y(4);                           
 SRP_Dconc = y(15)/y(2);                            
 SRP_Pconc = y(13)/y(1);                            
-SRP_Sconc = y(17)/y(3);                            
+SRP_Sconc = y(17)/y(3);      
+
+NO3_Pconc = y(24)/y(1) ;
     
+
+
+
 
 %% Oceanic Water Cycle
 %%% As in Slomp and Van Cappellen, 2007
@@ -534,6 +553,11 @@ workingstate.CPanoxic(stepnumber,1) = pars.CPanoxic_deep ;
 workingstate.forg(stepnumber,1) = Fmocb / (Fmccb+Fmocb+Fsfw);
 
 workingstate.Total_POC_Burial(stepnumber,1) = Total_POC_Burial ;
+
+
+%%%% nitrate
+workingstate.NO3_Pconc(stepnumber,1) = NO3_Pconc ;
+
 
 %%%%%%% record time
 workingstate.time(stepnumber,1) = t ;
