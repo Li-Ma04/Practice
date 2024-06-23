@@ -12,6 +12,7 @@
 nsteps = 3300 ;
 %%%% Set timestep size (dt, in years)
 dt = 0.1 ;
+dt = 0.5 * 0.2
 
 %%%% load anthropogenic data
 mydata = xlsread('Anthro_CO2_Input1.xlsx') ;

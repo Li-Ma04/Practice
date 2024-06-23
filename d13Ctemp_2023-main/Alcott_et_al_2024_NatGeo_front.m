@@ -112,7 +112,7 @@ pars.y(20) = starting.OP_DP ; %mol
 starting.NO3_P = 1e8 ; %% (GUESS) %% total moles of NO3 in proximal shelf (volumne of water * concentration)
 pars.y(24) = starting.NO3_P ;
 
-
+111111
 
 
 %% COPSE Carbon
