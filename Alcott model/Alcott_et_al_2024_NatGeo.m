@@ -40,7 +40,7 @@ Aiso = y(23) ;
 
 %%%% Nitrate ;
 NO3_P = y(24) ;
-NO3_D = y(25)
+NO3_D = y(25) ;
 NO3_S = y(26) ;
 NO3_DP = y(27) ;
 
@@ -97,10 +97,10 @@ NO3_Pconc = y(24)/y(1) ;
 NO3_Dconc = y(25)/y(2) ;
 NO3_Sconc = y(26)/y(3) ;
 NO3_DPconc = y(27)/y(4) ;
-NO3_Pconc = y(28)/y(1) ;
-NO3_Dconc = y(29)/y(2) ;
-NO3_Sconc = y(30)/y(3) ;
-NO3_DPconc = y(31)/y(4) ;
+NH4_Pconc = y(28)/y(1) ;
+NH4_Dconc = y(29)/y(2) ;
+NH4_Sconc = y(30)/y(3) ;
+NH4_DPconc = y(31)/y(4) ;
     
 
 
@@ -439,6 +439,7 @@ OP_P_Min = Norm_OP_P * pars.kPrel_prox  ;
 
 % SRP transport from Proximal to Distal
 SRP_P_D = SRP_Pconc * Water_P_D ;
+NO3_P_D = NO3_Pconc * Water_P_D ;
 
 % Proximal sediment POP burial 
 OP_P_Burial = pars.Prox_C_Bur * PP_P * ( ( ( 1-fanoxicprox ) / pars.CPoxic ) + ( fanoxicprox / pars.CPanoxic_prox ) ) ;
@@ -524,15 +525,61 @@ P_AuthP_DP =  pars.fPF34 * OP_DP_Min * ( (1-per.CaP_deep_feedback) + ( per.CaP_d
     %POP Deep Ocean
     dy(20) = OP_S_DP - OP_DP_Min - OP_DP_Burial ;
 
+%     
 
+
+    %%%% Nitrogen fluxes
+    River_NO3 = 1e12 ; %%% guess for now
+    pars.Redfield_CN = 16 ;
+    P_PP_N =  PP_P/pars.Redfield_CN ;
     
+    % PON mineralisation in Proximal
+    PON_Min_P = POC_Min_P/16 ;
+
+%     
+    %% Nitrogen Differentials
+% 
+%     %NO3 Proximal
+%     dy(24) = River_SRP - P_PP_P + OP_P_Min - P_FeP_P - P_AuthP_P - SRP_P_D ; 
+    dy(24) = River_NO3 - P_PP_N + PON_Min_P - NO3_P_D ; 
+% 
+% 
+%     %NO3 Distal
+%     dy(25) = SRP_P_D - P_PP_D + OP_D_Min - P_FeP_D - P_AuthP_D - SRP_D_S + SRP_DP_D ;
+% 
+%     %NO3 Surface Ocean
+%     dy(26) = SRP_D_S - P_PP_S + OP_S_Min - SRP_S_DP + SRP_DP_S ;
+
+%     %NO3 Deep Ocean
+%     dy(27) = SRP_S_DP + OP_DP_Min - P_FeP_DP - P_AuthP_DP - SRP_DP_S - SRP_DP_D ;
+
+
+
+%     %NH4 Proximal
+%     dy(28) = P_PP_P - OP_P_Min - OP_P_Burial - OP_P_D  ;
+
+%     %NH4 Distal
+%     dy(29) = OP_P_D + P_PP_D - OP_D_Min - OP_D_Burial - OP_D_S ;
+% 
+% 
+%     %NH4 Surface Ocean
+%     dy(30) = OP_D_S + P_PP_S - OP_S_Min - OP_S_DP;
+% 
+%     %NH4 Deep Ocean
+%     dy(31) = OP_S_DP - OP_DP_Min - OP_DP_Burial ;
+
+
+
 %% Saving data
 workingstate.FrgfO2(stepnumber,1) = FrgfO2 ;
 
 workingstate.O2_DP(stepnumber,1) = O2_DP ;
 workingstate.O2_A(stepnumber,1) = O2_A ;
 
-workingstate.SRP_DP(stepnumber,1) = SRP_DP ;
+workingstate.SRP_Pconc(stepnumber,1) = SRP_Pconc ;
+workingstate.SRP_Dconc(stepnumber,1) = SRP_Dconc ;
+workingstate.SRP_Sconc(stepnumber,1) = SRP_Sconc ;
+workingstate.SRP_DPconc(stepnumber,1) = SRP_DPconc ;
 workingstate.River_SRP(stepnumber,1) = River_SRP ;
 
 workingstate.CP_Dist(stepnumber,1) = ( ( ( 1-fanoxicdist ) * pars.CPoxic ) + ( fanoxicdist * pars.CPanoxic_dist ) ) ;
