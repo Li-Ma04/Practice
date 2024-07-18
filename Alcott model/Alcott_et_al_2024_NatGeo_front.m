@@ -39,7 +39,7 @@ per.generic_red = 0 ; %Generic reduced gas input - 0 at present day
 %%%%% Values from Slomp and Van Cappellen, 2007
 starting.Water_P = 36e12 ;
 starting.Water_D = 3600e12 ;       
-starting.Water_S = 49830e12 ;
+starting.Water_S = 49830e12 ; 
 starting.Water_DP = 1.3e18 ;
 %Proximal Coastal Zone
 pars.y(1) = starting.Water_P; %m^3
