@@ -59,24 +59,42 @@ Norm_O2_D = O2_D / present.O2_D ;
 
 
 %% Forcings
-tgeol = t/1e6 ; % For now but set to 570 for neoprot
 
 Pforce = per.P ;
-
 carbconst = 0.9 ;
 silconst = 0.33 ;
 
-EXPOSED = interp1([-4.2e9 -3e9 (-1e9*sensparams.EXPtiming) -1.7e9 -1.6e9 0],[sensparams.EXP sensparams.EXP sensparams.EXP2 1 1 1],t) ; %Rough estimate of rapid emergence prior to GOE
-D = interp1([-4.2e9 -3e9 -2e9 0],[12 5 2 1],t) * sensparams.D;
 
-pars.CPanoxic_prox = sensparams.CP ;
-pars.CPanoxic_dist = sensparams.CP ;
-pars.CPanoxic_deep = sensparams.CP ;
+if per.runcontrol == 2
+    
+    EXPOSED = 1 ; %Rough estimate of rapid emergence prior to GOE
+    D = 1 ;
+    pars.CPanoxic_prox = 106 ;
+    pars.CPanoxic_dist = 106 ;
+    pars.CPanoxic_deep = 106 ;
+    C = 1 ;
+    pars.fbiota = 1 ;
+    locb = 1;
+    tgeol = 0 ; % For now but set to 570 for neoprot
+
+    
+else
+    EXPOSED = interp1([-4.2e9 -3e9 (-1e9*sensparams.EXPtiming) -1.7e9 -1.6e9 0],[sensparams.EXP sensparams.EXP sensparams.EXP2 1 1 1],t) ; %Rough estimate of rapid emergence prior to GOE
+    D = interp1([-4.2e9 -3e9 -2e9 0],[12 5 2 1],t) * sensparams.D;
+    pars.CPanoxic_prox = sensparams.CP ;
+    pars.CPanoxic_dist = sensparams.CP ;
+    pars.CPanoxic_deep = sensparams.CP ;
+    C = interp1([per.C_HW_2006_time],[per.C_HW_2006_data],t)^ sensparams.C ;
+    pars.fbiota = interp1([-4.2e9 -450e6 -350e6 0],[sensparams.fbiota sensparams.fbiota 1 1],t) ;
+    locb = interp1([-4.2e9 -450e6 -350e6 0], [0 0 1 1],t) ;
+    tgeol = t/1e6 ; % For now but set to 570 for neoprot
+
+end
+
+
 U = 1 ;
 PG = 1 ;
-C = interp1([per.C_HW_2006_time],[per.C_HW_2006_data],t)^ sensparams.C ;
-pars.fbiota = interp1([-4.2e9 -450e6 -350e6 0],[sensparams.fbiota sensparams.fbiota 1 1],t) ;
-locb = interp1([-4.2e9 -450e6 -350e6 0], [0 0 1 1],t) ;
+
 
 
 %% Concentrations 
@@ -689,6 +707,9 @@ workingstate.time(stepnumber,1) = t ;
 
 %%% final action: record current model step
 stepnumber = stepnumber + 1 ;
+
+
+t
 
 
 end

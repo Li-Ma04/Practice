@@ -2,7 +2,7 @@
 % Model based on Slomp and VanCappellen, 2007, Biogeosciences; Tsandev et
 % al., 2008, GBC; Tsandev and Slomp, 2009, EPSL. Alcott et al., 2019
 % Model front (runs a single model run)
-function run = Alcott_et_al_2024_NatGeo_front(S)
+function run = Alcott_et_al_2024_NatGeo_front(runcontrol)
 
 %%% Set up Global parameters
 global stepnumber
@@ -14,6 +14,8 @@ global per
 global present
 global state
 global sensparams
+
+per.runcontrol = runcontrol ;
 
 %% Options
 when.start = -4.2e9 ; %Start time

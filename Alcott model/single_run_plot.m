@@ -22,7 +22,7 @@ hold on
 box on
 %%
 subplot(4,4,4)
-plot(state.time/10e5,state.O2_DP/present.O2_A)
+plot(state.time/10e5,state.O2_DP/present.O2_DP)
 xlabel('Time (Ma)')
 ylabel('O_{2} (Deep ocean) (PAL)')
 hold on
@@ -126,7 +126,7 @@ semilogy(state.time/10e5,state.NO3_Dconc)
 semilogy(state.time/10e5,state.NO3_Sconc)
 semilogy(state.time/10e5,state.NO3_DPconc)
 xlabel('Time (Ma)')
-ylabel('NO3')
+ylabel('NO3 (mmol/l)')
 legend('NO3 (Prox)','NO3 (dist)','NO3 (surf)','NO3 (deep)')
 hold on
 box on
@@ -139,7 +139,7 @@ semilogy(state.time/10e5,state.NH4_Dconc)
 semilogy(state.time/10e5,state.NH4_Sconc)
 semilogy(state.time/10e5,state.NH4_DPconc)
 xlabel('Time (Ma)')
-ylabel('NH4')
+ylabel('NH4 (mmol/l)')
 legend('NH4 (Prox)','NH4 (dist)','NH4 (surf)','NH4 (deep)')
 hold on
 box on
