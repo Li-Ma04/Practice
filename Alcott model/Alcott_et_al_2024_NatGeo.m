@@ -174,8 +174,11 @@ Norm_POC_P = POC_P / present.POC_P ;
 Norm_POC_D = POC_D / present.POC_D ;
 Norm_POC_S = POC_S / present.POC_S ;
 Norm_POC_DP = POC_DP / present.POC_DP ;
+Norm_NO3_P = NO3_P / present.NO3_P ;
 Norm_O2_A = O2_A / present.O2_A ;
-
+Norm_O2_A = O2_A / present.O2_A ;
+Norm_O2_A = O2_A / present.O2_A ;
+Norm_O2_A = O2_A / present.O2_A ;
 
 %% Marine Carbon Cycle
 
@@ -548,31 +551,32 @@ P_AuthP_DP =  pars.fPF34 * OP_DP_Min * ( (1-per.CaP_deep_feedback) + ( per.CaP_d
 
     %%%% Nitrogen fluxes
 
-    River_NO3 = 2.85e12 ; %%% guess for now
-    pars.Redfield_CN = 106/16 ;
+    River_NO3 = 1.8e12 ; %%% guess for now
+    River_NH4 = 0.18e12 ;
+    pars.Redfield_NP = 16 ;
 	% Primary Production  
 	% Primary Production in Proximal
-    N_PP_P =  PP_P/pars.Redfield_CN ;
-	NO3_PP_P = 0.65 * N_PP_P ;
-	NH4_PP_P = 0.35 * N_PP_P ;   
+    N_PP_P = P_PP_P*pars.Redfield_NP ;
+	NO3_PP_P = 0.2 * N_PP_P ;
+	NH4_PP_P = 0.6 * N_PP_P ;   
 	% Primary Production in Distal
-    N_PP_D =  PP_D/pars.Redfield_CN ;  
-	NO3_PP_D = 0.65 * N_PP_D ;
-	NH4_PP_D = 0.35 * N_PP_D ;
+    N_PP_D = P_PP_D*pars.Redfield_NP ;  
+	NO3_PP_D = 0.2 * N_PP_D ;
+	NH4_PP_D = 0.6 * N_PP_D ;
 	% Primary Production in Surface Ocean
-    N_PP_S =  PP_S/pars.Redfield_CN ;  
-	NO3_PP_S = 0.35 * N_PP_S ;
-	NH4_PP_S = 0.65 * N_PP_S ;
+    N_PP_S = P_PP_S*pars.Redfield_NP ;  
+	NO3_PP_S = 0.2 * N_PP_S ;
+	NH4_PP_S = 0.6 * N_PP_S ;
  
 	% PON mineralisation 
 	% PON mineralisation in Proximal
-    PON_Min_P = POC_Min_P/pars.Redfield_CN ;
+    PON_Min_P = OP_P_Min*pars.Redfield_NP ;
 	   % PON mineralisation in Distal
-    PON_Min_D = POC_Min_D/pars.Redfield_CN ;
+    PON_Min_D = OP_D_Min*pars.Redfield_NP ;
 	    % PON mineralisation in Surface Ocean
-    PON_Min_S = POC_Min_S/pars.Redfield_CN ;	
+    PON_Min_S = OP_S_Min*pars.Redfield_NP ;	
     % PON mineralisation in Deep Ocean
-    PON_Min_DP = POC_DP_Resp/pars.Redfield_CN ; 
+    PON_Min_DP = OP_DP_Min*pars.Redfield_NP ; 
 		
 	
 	%%%% N transport 
@@ -598,13 +602,13 @@ P_AuthP_DP =  pars.fPF34 * OP_DP_Min * ( (1-per.CaP_deep_feedback) + ( per.CaP_d
 	NH4_Nfix_S = 10e12  ;
 	
 	%%%NO3 produced by Nitrification in different zone (There is also a correlation with ammonia consumption)
-	NO3_Nitri_P = PON_Min_P + NH4_Nfix_P - NH4_PP_P ;
-	NO3_Nitri_D = PON_Min_D + NH4_Nfix_D - NH4_PP_D ;
-	NO3_Nitri_S = PON_Min_S + NH4_Nfix_S - NH4_PP_S ;    
-	
+	NO3_Nitri_P = (River_NH4 - NH4_P_D + PON_Min_P - NH4_PP_P + NH4_Nfix_P)*0.95;
+	NO3_Nitri_D = (NH4_P_D - NH4_D_S + NH4_DP_D + PON_Min_D - NH4_PP_D + NH4_Nfix_D)*0.95;
+	NO3_Nitri_S = (NH4_D_S - NH4_S_DP + NH4_DP_S + PON_Min_S - NH4_PP_S + NH4_Nfix_S)*0.9 ;    
+	NO3_Nitri_DP = (NH4_S_DP - NH4_DP_S - NH4_DP_D + PON_Min_DP)*0.9 ;
 	%%%Loss of NO3 during denitrification in different zone	
 	NO3_denit_P = 0.29e12   ;
-	NO3_denit_D = 7.2e12  ;
+	NO3_denit_D = 7.14e12  ;
 	NO3_denit_S = 4.28e12  ;
 	NO3_denit_DP = 7.85e12  ;
 	
@@ -628,28 +632,28 @@ P_AuthP_DP =  pars.fPF34 * OP_DP_Min * ( (1-per.CaP_deep_feedback) + ( per.CaP_d
 %     %NO3 Deep Ocean
 %     dy(27) = SRP_S_DP + OP_DP_Min - P_FeP_DP - P_AuthP_DP - SRP_DP_S - SRP_DP_D ;
 
-    dy(27) = NO3_S_DP - NO3_DP_S - NO3_DP_D - NO3_denit_DP  ;
+    dy(27) = NO3_S_DP - NO3_DP_S - NO3_DP_D - NO3_denit_DP + NO3_Nitri_DP  ;
 
 
 %     %NH4 Proximal
 %     dy(28) = P_PP_P - OP_P_Min - OP_P_Burial - OP_P_D  ;
 
-    dy(28) =  PON_Min_P - NH4_PP_P - NH4_P_D - NO3_Nitri_P + NH4_Nfix_P;
+    dy(28) =  River_NH4 - NH4_P_D + PON_Min_P - NH4_PP_P + NH4_Nfix_P - NO3_Nitri_P;
 
 %     %NH4 Distal
 %     dy(29) = OP_P_D + P_PP_D - OP_D_Min - OP_D_Burial - OP_D_S ;
 
-    dy(29) = NH4_P_D - NH4_PP_D + PON_Min_D - NH4_D_S + NH4_DP_D - NO3_Nitri_D + NH4_Nfix_D;
+    dy(29) = NH4_P_D - NH4_D_S + NH4_DP_D + PON_Min_D - NH4_PP_D + NH4_Nfix_D - NO3_Nitri_D;
 %
 %     %NH4 Surface Ocean
 %     dy(30) = OP_D_S + P_PP_S - OP_S_Min - OP_S_DP;
 
-    dy(30) = NH4_D_S - NH4_PP_S + PON_Min_S - NH4_S_DP + NH4_DP_S - NO3_Nitri_S + NH4_Nfix_S ;
+    dy(30) = NH4_D_S - NH4_S_DP + NH4_DP_S + PON_Min_S - NH4_PP_S + NH4_Nfix_S - NO3_Nitri_S ;
 
 %     %NH4 Deep Ocean
 %     dy(31) = OP_S_DP - OP_DP_Min - OP_DP_Burial ;
 
-    dy(31) = NH4_S_DP + PON_Min_DP - NH4_DP_S - NH4_DP_D   ;
+    dy(31) = NH4_S_DP - NH4_DP_S - NH4_DP_D + PON_Min_DP - NO3_Nitri_DP  ;
 
 
 %% Saving data
