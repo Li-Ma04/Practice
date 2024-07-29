@@ -602,10 +602,17 @@ P_AuthP_DP =  pars.fPF34 * OP_DP_Min * ( (1-per.CaP_deep_feedback) + ( per.CaP_d
 	NH4_Nfix_S = 10e12  ;
 	
 	%%%NO3 produced by Nitrification in different zone (There is also a correlation with ammonia consumption)
-	NO3_Nitri_P = (River_NH4 - NH4_P_D + PON_Min_P - NH4_PP_P + NH4_Nfix_P)*0.95;
-	NO3_Nitri_D = (NH4_P_D - NH4_D_S + NH4_DP_D + PON_Min_D - NH4_PP_D + NH4_Nfix_D)*0.95;
-	NO3_Nitri_S = (NH4_D_S - NH4_S_DP + NH4_DP_S + PON_Min_S - NH4_PP_S + NH4_Nfix_S)*0.9 ;    
-	NO3_Nitri_DP = (NH4_S_DP - NH4_DP_S - NH4_DP_D + PON_Min_DP)*0.9 ;
+% 	NO3_Nitri_P = (River_NH4 - NH4_P_D + PON_Min_P - NH4_PP_P + NH4_Nfix_P)*0.95;
+% 	NO3_Nitri_D = (NH4_P_D - NH4_D_S + NH4_DP_D + PON_Min_D - NH4_PP_D + NH4_Nfix_D)*0.95;
+% 	NO3_Nitri_S = (NH4_D_S - NH4_S_DP + NH4_DP_S + PON_Min_S - NH4_PP_S + NH4_Nfix_S)*0.9 ;    
+% 	NO3_Nitri_DP = (NH4_S_DP - NH4_DP_S - NH4_DP_D + PON_Min_DP)*0.9 ;
+    
+    k_nitrification = 1e14 ;
+	NO3_Nitri_P = NH4_Pconc*k_nitrification ;
+	NO3_Nitri_D = NH4_Dconc*k_nitrification ;
+	NO3_Nitri_S = NH4_Sconc*k_nitrification ;
+	NO3_Nitri_DP = NH4_DPconc*k_nitrification ;
+    
 	%%%Loss of NO3 during denitrification in different zone	
 	NO3_denit_P = 0.29e12   ;
 	NO3_denit_D = 7.14e12  ;
@@ -705,6 +712,11 @@ workingstate.NH4_Pconc(stepnumber,1) = NH4_Pconc ;
 workingstate.NH4_Dconc(stepnumber,1) = NH4_Dconc ;
 workingstate.NH4_Sconc(stepnumber,1) = NH4_Sconc ;
 workingstate.NH4_DPconc(stepnumber,1) = NH4_DPconc ;
+
+%%%% total marine N
+total_marine_N = NO3_P + NO3_D + NO3_S + NO3_DP + NH4_P + NH4_D + NH4_S + NH4_DP ;
+workingstate.total_marine_N(stepnumber,1) = total_marine_N ;
+
 
 %%%%%%% record time
 workingstate.time(stepnumber,1) = t ;
