@@ -642,18 +642,18 @@ P_AuthP_DP =  pars.fPF34 * OP_DP_Min * ( (1-per.CaP_deep_feedback) + ( per.CaP_d
 	NO3_denit_DP = 5e12  ;
 	
     %% Nitrogen Differentials
- 
- total_marine_N = SRP_P + SRP_D + SRP_S + SRP_DP + OP_P + OP_D + OP_S + OP_DP ;
+ total_marine_N = NO3_P + NO3_D + NO3_S + NO3_DP + NH4_P + NH4_D + NH4_S + NH4_DP ;
  total_marine_denit = NO3_denit_P + NO3_denit_D + NO3_denit_S + NO3_denit_DP ;
  total_marine_Nfix = NH4_Nfix_P + NH4_Nfix_D + NH4_Nfix_S ;
  total_marine_Nitri = NO3_Nitri_P + NO3_Nitri_D + NO3_Nitri_S + NO3_Nitri_DP ;
  total_marine_PON = PON_Min_P + PON_Min_D + PON_Min_S + PON_Min_DP ;
+ total_marine_NBury = PON_bury_P + PON_bury_D + PON_bury_DP ;
  total_marine_PPN = N_PP_P + N_PP_D + N_PP_S ;
  total_marine_PPNH4 = NH4_PP_P + NH4_PP_D + NH4_PP_S ;
  total_marine_PPNO3 = NO3_PP_P + NO3_PP_D + NO3_PP_S ;
  total_marine_NB = total_marine_PPN - total_marine_PON ;
 
- total_marine_NBury = PON_bury_P + PON_bury_D + PON_bury_DP ;
+ 
  N_balance = River_NO3+ River_NH4 + total_marine_Nfix - total_marine_denit - total_marine_NBury ;
  total_marine_NH4 = total_marine_Nfix + total_marine_PON + River_NH4 - total_marine_PPNH4 - total_marine_Nitri ;
  total_marine_NO3 = River_NO3 + total_marine_Nitri - total_marine_PPNO3 - total_marine_denit ;
@@ -662,7 +662,7 @@ P_AuthP_DP =  pars.fPF34 * OP_DP_Min * ( (1-per.CaP_deep_feedback) + ( per.CaP_d
  total_marine_OPBurial = OP_P_Burial + OP_D_Burial + OP_DP_Burial ;
  total_marine_KW = P_FeP_P + P_AuthP_P + P_FeP_D + P_AuthP_D + P_FeP_DP + P_AuthP_DP ;
  P_balance = River_SRP - total_marine_KW - total_marine_OPBurial ;
- total_marine_p = NO3_P + NO3_D + NO3_S + NO3_DP + NH4_P + NH4_D + NH4_S + NH4_DP ;
+ total_marine_P = SRP_P + SRP_D + SRP_S + SRP_DP + OP_P + OP_D + OP_S + OP_DP ;
  
  ML = P_balance - (dy(13)+dy(14)+dy(15)+dy(16)+dy(17)+dy(18)+dy(19)+dy(20)) ;
 %     %NO3 Proximal
@@ -763,8 +763,55 @@ workingstate.NH4_DPconc(stepnumber,1) = NH4_DPconc ;
 
 %%%% total marine N
 
+ workingstate.NH4_Nfix_P(stepnumber,1) = NH4_Nfix_P ;
+ workingstate.NH4_Nfix_D(stepnumber,1) = NH4_Nfix_D ;
+ workingstate.NH4_Nfix_S(stepnumber,1) = NH4_Nfix_S ;
+ 
+ workingstate.NO3_Nitri_P(stepnumber,1) = NO3_Nitri_P ;
+ workingstate.NO3_Nitri_D(stepnumber,1) = NO3_Nitri_D ;
+ workingstate.NO3_Nitri_S(stepnumber,1) = NO3_Nitri_S ;
+ workingstate.NO3_Nitri_DP(stepnumber,1) = NO3_Nitri_DP ;
+
+ workingstate.NO3_denit_P(stepnumber,1) = NO3_denit_P ;
+ workingstate.NO3_denit_D(stepnumber,1) = NO3_denit_D ;
+ workingstate.NO3_denit_S(stepnumber,1) = NO3_denit_S ;
+ workingstate.NO3_denit_DP(stepnumber,1) = NO3_denit_DP ;
+
+ workingstate.PON_Min_P(stepnumber,1) = PON_Min_P ;
+ workingstate.PON_Min_D(stepnumber,1) = PON_Min_D ;
+ workingstate.PON_Min_S(stepnumber,1) = PON_Min_S ;
+ workingstate.PON_Min_DP(stepnumber,1) = PON_Min_DP ;
+
+ workingstate.PON_bury_P(stepnumber,1) = PON_bury_P ;
+ workingstate.PON_bury_D(stepnumber,1) = PON_bury_D ;
+ workingstate.PON_bury_DP(stepnumber,1) = PON_bury_DP ;
+
+ workingstate.N_PP_P(stepnumber,1) = N_PP_P ;
+ workingstate.N_PP_D(stepnumber,1) = N_PP_D ;
+ workingstate.N_PP_S(stepnumber,1) = N_PP_S ;
+
+ workingstate.NH4_PP_P(stepnumber,1) = NH4_PP_P ;
+ workingstate.NH4_PP_D(stepnumber,1) = NH4_PP_D ;
+ workingstate.NH4_PP_S(stepnumber,1) = NH4_PP_S ;
+ 
+ workingstate.NO3_PP_P(stepnumber,1) = NO3_PP_P ;
+ workingstate.NO3_PP_D(stepnumber,1) = NO3_PP_D ;
+ workingstate.NO3_PP_S(stepnumber,1) = NO3_PP_S ;
+ 
+ 
  workingstate.total_marine_N(stepnumber,1) = total_marine_N ;
- workingstate.total_marine_P(stepnumber,1) = total_marine_p ;
+ workingstate.total_marine_denit(stepnumber,1) = total_marine_denit ;
+ workingstate.total_marine_Nfix(stepnumber,1) = total_marine_Nfix ;
+ workingstate.total_marine_Nitri(stepnumber,1) = total_marine_Nitri ;
+ workingstate.total_marine_NBury(stepnumber,1) = total_marine_NBury ;
+
+ 
+ workingstate.total_marine_PON(stepnumber,1) = total_marine_PON ;
+ workingstate.total_marine_PPN(stepnumber,1) = total_marine_PPN ;
+ workingstate.total_marine_PPNH4(stepnumber,1) = total_marine_PPNH4 ;
+ workingstate.total_marine_PPNO3(stepnumber,1) = total_marine_PPNO3 ;
+ 
+ 
 
 %%%%%%% record time
 workingstate.time(stepnumber,1) = t ;
