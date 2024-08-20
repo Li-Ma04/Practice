@@ -500,6 +500,6 @@ fprintf('Done: ')
 endtime = toc ;
 fprintf('time (s): %d \n', endtime )
 
-
+single_run_plot
 single_run_plot_N
 
