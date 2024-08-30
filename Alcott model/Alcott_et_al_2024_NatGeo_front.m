@@ -158,14 +158,14 @@ present.O2_S =1.6145e16 ;
 present.O2_P = 4.5e12 ;
 
 %%%%N Cycle
-present.NO3_P = 1.8e11 ; 
-present.NO3_D = 2.5e13 ; 
-present.NO3_S = 7.4745e14 ; 
-present.NO3_DP = 3.9e16 ;
-present.NH4_P = 2.52e10 ; 
-present.NH4_D = 2.16e12 ; 
-present.NH4_S = 2.4915e13 ; 
-present.NH4_DP = 0.39e15 ;
+present.NO3_P = 4e11 ; 
+present.NO3_D = 6.55e13 ; 
+present.NO3_S = 8.3e14 ; 
+present.NO3_DP = 4.55e16 ;
+present.NH4_P = 4.4e10 ; 
+present.NH4_D = 2.15995e12 ; 
+present.NH4_S = 2.49255e13 ; 
+present.NH4_DP = 0.37996e15 ;
 
 
 %% Starting concentrations 

@@ -117,6 +117,10 @@ PG = 1 ;
 
 %% Concentrations 
 present.Conc_O2_deep = present.O2_DP / starting.Water_DP ;
+present.Conc_O2_S = present.O2_S / starting.Water_S ;
+present.Conc_O2_D = present.O2_D / starting.Water_D ;
+present.Conc_O2_P = present.O2_P / starting.Water_P ;
+
 O2_Pconc = O2_P / Water_P ;
 O2_Dconc = O2_D / Water_D ;
 O2_Sconc = O2_S / Water_S ;
@@ -288,6 +292,7 @@ fanoxicprox = 1 / ( 1 + exp(-kanox * ( kU * Norm_SRP_P - O2O20 ) ) ) ;
 
 present.fanoxicprox = 0.0025 ;
 present.fanoxicdist = 0.0025 ;
+starting.fanoxic = 0.0025 ;
 
 %Concentration of oxygen 
 O2_Sconc = O2_S/Water_S ;
@@ -630,39 +635,136 @@ NH4_DP_S = NH4_DPconc * Water_DP_S ;
 
 %%%%% CURRENTLY FIXED
 
-%%%NH4 produced by N2 fixation in different zone
-NH4_Nfix_P = 9e11  ;
-NH4_Nfix_D = 1e12  ;
-NH4_Nfix_S = 10e12  ;
+%%NH4 produced by N2 fixation in different zone
+NH4_PNfix = 9e11  ;
+NH4_DNfix = 1e12  ;
+NH4_SNfix = 10e12  ;
+% 
+% % %%%%% Proximal
+% N_P = y(24) + y(28) ; %% Sum of NO3 and NH4 in Proximal
+% present.N_P = present.NO3_P + present.NH4_P ; %%% N reservoir present day sizes
+% P_P = y(13) + y(14) ; %%Sum of SPR and OP in Proximal
+% present.P_P = present.SRP_P + present.OP_P ; %%P reservoir present day sizes
+% 
+% if (N_P/16) < P_P * 2.5
+%     NH4_Nfix_P = NH4_PNfix * ( ( ( P_P * 2.5 - (N_P/16)  ) / ( present.P_P - (present.N_P/16)    ) )^2 ) ;
+% else
+%     NH4_Nfix_P = 0 ;
+% end
+% 
+% %%%%% Distal
+% N_D = y(25) + y(29) ; 
+% present.N_D = present.NO3_D + present.NH4_D ; 
+% P_D = y(15) + y(16) ; 
+% present.P_D = present.SRP_D + present.OP_D ; 
+% 
+% if (N_D/16) < P_D * 2.5
+%     NH4_Nfix_D = NH4_DNfix * ( ( ( P_D * 2.5 - (N_D/16)  ) / ( present.P_D - (present.N_D/16)    ) )^2 ) ;
+% else
+%     NH4_Nfix_D = 0 ;
+% end
+% 
+% %%%%% Surface Ocean
+% N_S = y(26) + y(30) ; 
+% present.N_S = present.NO3_S + present.NH4_S ; 
+% P_S = y(17) + y(18) ; 
+% present.P_S = present.SRP_S + present.OP_S ; 
+% 
+% if (N_S/16) < P_S * 2.5
+%     NH4_Nfix_S = NH4_SNfix * ( ( ( P_S * 2.5 - (N_S/16)  ) / ( present.P_S - (present.N_S/16)    ) )^2 ) ;
+% else
+%     NH4_Nfix_S = 0 ;
+% end
 
-%%%Loss of NO3 during denitrification in different zone	
-NO3_denit_P = 7e11   ;
-NO3_denit_D = 3e12  ;
-NO3_denit_S = 4e12  ;
-NO3_denit_DP = 5e12  ;
+%%%%% Proximal
+
+if (NH4_P/16) < SRP_P  
+    NH4_Nfix_P = NH4_PNfix * ( ( ( SRP_P - (NH4_P/16)  ) / ( present.SRP_P - (present.NH4_P/16)    ) )^2 ) ;
+else
+    NH4_Nfix_P = 0 ;
+end
+
+%%%%% Distal
+
+if (NH4_D/16) < SRP_D 
+    NH4_Nfix_D = NH4_DNfix * ( ( ( SRP_D - (NH4_D/16)  ) / ( present.SRP_D - (present.NH4_D/16)    ) )^2 ) ;
+else
+    NH4_Nfix_D = 0 ;
+end
+
+%%%%% Surface Ocean
+
+if (NH4_S/16) < SRP_S
+    NH4_Nfix_S = NH4_SNfix * ( ( ( SRP_S - (NH4_S/16)  ) / ( present.SRP_S - (present.NH4_S/16)    ) )^2 ) ;
+else
+    NH4_Nfix_S = 0 ;
+end
 
 
-%%%% Variable
+%%%%%%%%%%%%%%%%%%%%%%%%%%%Loss of NO3 during denitrification in different zone	
 
-%%%NO3 produced by Nitrification in different zone (There is also a correlation with ammonia consumption)
-% 	NO3_Nitri_P = (River_NH4 - NH4_P_D + PON_Min_P - NH4_PP_P + NH4_Nfix_P)*0.95;
-% 	NO3_Nitri_D = (NH4_P_D - NH4_D_S + NH4_DP_D + PON_Min_D - NH4_PP_D + NH4_Nfix_D)*0.95;
-% 	NO3_Nitri_S = (NH4_D_S - NH4_S_DP + NH4_DP_S + PON_Min_S - NH4_PP_S + NH4_Nfix_S)*0.9 ;    
-% 	NO3_Nitri_DP = (NH4_S_DP - NH4_DP_S - NH4_DP_D + PON_Min_DP)*0.9 ;
+fanoxicsurf = 1 / ( 1 + exp(-kanox * ( kU * Norm_SRP_S - O2O20 ) ) ) ; 
+present.fanoxicsurf = 0.0025 ;
 
+NO3_Pdenit = 7e11 / (starting.fanoxic/present.fanoxicprox) ;%Present level
+NO3_Ddenit = 3e12 / (starting.fanoxic/present.fanoxicdist);
+NO3_Sdenit = 4e12 / (starting.fanoxic/present.fanoxicsurf) ;
+NO3_DPdenit = 5e12  ;
+
+%%%%% Proximal
+NO3_denit_P = NO3_Pdenit *  ( 1 + ( fanoxicprox / present.fanoxicprox ) ) * (NO3_P/present.NO3_P) ;
+
+%%%%% Distal
+NO3_denit_D = NO3_Ddenit *  ( 1 + ( fanoxicdist / present.fanoxicdist ) ) * (NO3_D/present.NO3_D) ;
+
+%%%%% Surface Ocean
+NO3_denit_S = NO3_Sdenit *  ( 1 + ( fanoxicsurf / present.fanoxicsurf ) )  * (NO3_S/present.NO3_S) ;
+
+%%%%% Deep Ocean
+NO3_denit_DP = NO3_DPdenit * ( 1 + ( 1 - ( O2_DPconc / present.Conc_O2_deep ) ) ) * (NO3_DP/present.NO3_DP) ;
+
+
+%%%%Another definition of denitrification
+%%%%% Proximal
+%NO3_denit_P = NO3_Pdenit * ( 1 + ( fanoxicprox / present.fanoxicprox ) ) * (N_P/present.N_P) ; 
+
+%%%%% Distal
+%NO3_denit_D = NO3_Ddenit * ( 1 + ( fanoxicdist / present.fanoxicdist ) ) * (N_D/present.N_D) ;
+
+%%%%% Surface Ocean
+%NO3_denit_S = NO3_Sdenit * ( 1 + ( fanoxicsurf / present.fanoxicsurf ) ) * (N_S/present.N_S) ;
+
+%NO3_denit_S = NO3_Sdenit * ( 1 - ( O2_Sconc / present.Conc_O2_Surf ) ) * (NO3_S/present.NO3_S) ;
+
+%%%%% Deep Ocean
+% N_DP = y(27) + y(31) ; 
+% present.N_DP = present.NO3_DP + present.NH4_DP ; 
+% P_DP = y(19) + y(20) ; 
+% present.P_DP = present.SRP_DP + present.OP_DP ; 
+% NO3_denit_DP = NO3_DPdenit * ( 1 - ( O2_DPconc / present.Conc_O2_deep )  ) * (N_DP/present.N_DP) ;
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Variable nitrification
+
+%NO3_Nitri_P = NH4_Pconc*k_P_nitrification ; %Another definition
 k_P_nitrification = 7e14 ;
+NO3_PNitri = starting.NH4_Pconc*k_P_nitrification ; %Present level
+NO3_Nitri_P = NO3_PNitri * (O2_Pconc / present.Conc_O2_P) * (NH4_P/present.NH4_P) ; 
 
-NO3_Nitri_P = NH4_Pconc*k_P_nitrification ;
-
+%NO3_Nitri_D = NH4_Dconc*k_D_nitrification ; 
 k_D_nitrification = 2.2964e16 ;
-NO3_Nitri_D = NH4_Dconc*k_D_nitrification ;
+NO3_DNitri = starting.NH4_Dconc*k_D_nitrification ;
+NO3_Nitri_D = NO3_DNitri * (O2_Dconc / present.Conc_O2_D) * (NH4_D/present.NH4_D) ; 
 
+%NO3_Nitri_S = NH4_Sconc*k_S_nitrification ;
 k_S_nitrification = 1.005e17 ;
-NO3_Nitri_S = NH4_Sconc*k_S_nitrification ;
+NO3_SNitri = starting.NH4_Sconc*k_S_nitrification ;
+NO3_Nitri_S = NO3_SNitri * (O2_Sconc / present.Conc_O2_S) * (NH4_S/present.NH4_S) ; 
 
+%NO3_Nitri_DP = NH4_DPconc*k_DP_nitrification ;
 k_DP_nitrification = 2.769e17 ;
-NO3_Nitri_DP = NH4_DPconc*k_DP_nitrification ;
-
+NO3_DPNitri = starting.NH4_DPconc*k_DP_nitrification ;
+NO3_Nitri_DP = NO3_DPNitri * ( O2_DPconc / present.Conc_O2_deep) * (NH4_DP/present.NH4_DP) ; 
 
 	
     %% Nitrogen Differentials
