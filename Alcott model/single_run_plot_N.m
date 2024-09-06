@@ -1,6 +1,6 @@
 figure
 
-subplot(4,3,1)
+subplot(3,3,1)
 semilogy(state.time/10e5,state.NO3_Pconc)
 hold on
 semilogy(state.time/10e5,state.NO3_Dconc)
@@ -12,7 +12,7 @@ legend('NO3 (Prox)','NO3 (dist)','NO3 (surf)','NO3 (deep)')
 hold on
 box on
 %%
-subplot(4,3,2)
+subplot(3,3,2)
 semilogy(state.time/10e5,state.NH4_Pconc)
 hold on
 semilogy(state.time/10e5,state.NH4_Dconc)
@@ -24,7 +24,7 @@ legend('NH4 (Prox)','NH4 (dist)','NH4 (surf)','NH4 (deep)')
 hold on
 box on
 %%
-subplot(4,3,3)
+subplot(3,3,3)
 semilogy(state.time/10e5,state.NH4_Nfix_P)
 hold on
 semilogy(state.time/10e5,state.NH4_Nfix_D)
@@ -36,7 +36,7 @@ legend('Prox','dist','surf')
 hold on
 box on
 %%
-subplot(4,3,4)
+subplot(3,3,4)
 semilogy(state.time/10e5,state.NO3_Nitri_P)
 hold on
 semilogy(state.time/10e5,state.NO3_Nitri_D)
@@ -49,7 +49,7 @@ legend('Prox','dist','surf','deep')
 hold on
 box on
 %%
-subplot(4,3,5)
+subplot(3,3,5)
 semilogy(state.time/10e5,state.NO3_denit_P)
 hold on
 semilogy(state.time/10e5,state.NO3_denit_D)
@@ -62,7 +62,7 @@ legend('Prox','dist','surf','deep')
 hold on
 box on
 %%
-subplot(4,3,6)
+subplot(3,3,6)
 semilogy(state.time/10e5,state.PON_Min_P)
 hold on
 semilogy(state.time/10e5,state.PON_Min_D)
@@ -74,21 +74,9 @@ ylabel('Norg mineralization(mol)')
 legend('Prox','dist','surf','deep')
 hold on
 box on
-%%%
-subplot(4,3,7)
-semilogy(state.time/10e5,state.PON_bury_P)
-hold on
-semilogy(state.time/10e5,state.PON_bury_D)
-semilogy(state.time/10e5,state.PON_bury_DP)
 
-
-xlabel('Time (Ma)')
-ylabel('Organic nitrogen burial(mol)')
-legend('Prox','dist','deep')
-hold on
-box on
 %%
-subplot(4,3,8)
+subplot(3,3,7)
 semilogy(state.time/10e5,state.N_PP_P)
 hold on
 semilogy(state.time/10e5,state.N_PP_D)
@@ -100,71 +88,58 @@ ylabel('Primary production nitrogen(mol)')
 legend('Prox','dist','surf')
 hold on
 box on
-%%%
-subplot(4,3,9)
-semilogy(state.time/10e5,state.NH4_PP_P)
-hold on
-semilogy(state.time/10e5,state.NH4_PP_D)
-semilogy(state.time/10e5,state.NH4_PP_S)
+ %%%
+% subplot(4,3,9)
+% semilogy(state.time/10e5,state.NH4_PP_P)
+% hold on
+% semilogy(state.time/10e5,state.NH4_PP_D)
+% semilogy(state.time/10e5,state.NH4_PP_S)
+% 
+% 
+% xlabel('Time (Ma)')
+% ylabel('Ammonia to PPN(mol)')
+% legend('Prox','dist','surf')
+% hold on
+% box on
+% %%
+% subplot(4,3,10)
+% semilogy(state.time/10e5,state.NO3_PP_P)
+% hold on
+% semilogy(state.time/10e5,state.NO3_PP_D)
+% semilogy(state.time/10e5,state.NO3_PP_S)
+% xlabel('Time (Ma)')
+% ylabel('Nitrate to PPN(mol)')
+% legend('Prox','dist','surf')
+% hold on
+% box on
 
-
-xlabel('Time (Ma)')
-ylabel('Ammonia to PPN(mol)')
-legend('Prox','dist','surf')
-hold on
-box on
-%%
-subplot(4,3,10)
-semilogy(state.time/10e5,state.NO3_PP_P)
-hold on
-semilogy(state.time/10e5,state.NO3_PP_D)
-semilogy(state.time/10e5,state.NO3_PP_S)
-
-
-xlabel('Time (Ma)')
-ylabel('Nitrate to PPN(mol)')
-legend('Prox','dist','surf')
-hold on
-box on
-%%
-subplot(4,3,11)
+subplot(3,3,8)
 semilogy(state.time/10e5,state.total_marine_N)
 hold on
 semilogy(state.time/10e5,state.total_marine_denit)
 semilogy(state.time/10e5,state.total_marine_Nfix)
 semilogy(state.time/10e5,state.total_marine_Nitri)
-semilogy(state.time/10e5,state.total_marine_NBury)
-
-
 
 xlabel('Time (Ma)')
 ylabel('Total nitrogen(mol)')
-legend('Total N','Total denit','Total fix','Total nitri','Total Bury')
+legend('Total N','Total denit','Total fix','Total nitri')
 hold on
 box on
 %%
-subplot(4,3,12)
+subplot(3,3,9)
 
 semilogy(state.time/10e5,state.total_marine_PON)
 hold on
 semilogy(state.time/10e5,state.total_marine_PPN)
-semilogy(state.time/10e5,state.total_marine_PPNH4)
-semilogy(state.time/10e5,state.total_marine_PPNO3)
-
 
 xlabel('Time (Ma)')
-ylabel('Total nitrogen(mol)')
-legend('Total min','Total PPN','Total NH4 to PPN','Total NO3 to PPN')
+ylabel('Total production and mineralization N (mol)')
+legend('Total min','Total PPN')
 hold on
 box on
 
 
 
-%subplot(5,6,25)
-%plot(state.time/10e5,state.NO3_Pconc)
-%xlabel('Time (Ma)')
-%ylabel('NO_{3} (proximal)')
-%hold on
-%box on
+
 
 

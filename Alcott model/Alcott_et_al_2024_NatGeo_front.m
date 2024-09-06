@@ -111,14 +111,14 @@ pars.y(20) = starting.OP_DP ; %mol
 
 
 %% Nitrate and NH4
-starting.NO3_P = 4e11 ; %%mol (11.1 mmol/m3 * starting.Water_P /1000)
-starting.NO3_D = 6.55e13 ; %%mol (18.2 mmol/m3 * starting.Water_D /1000)
-starting.NO3_S = 8.3e14 ; %%mol (16.7 mmol/m3 * starting.Water_S /1000)
-starting.NO3_DP = 4.55e16 ; %%mol (35 mmol/m3 * starting.Water_DP /1000)
-starting.NH4_P = 4.4e10 ; %%mol (1.2 mmol/m3 * starting.Water_P /1000)  %note: Because the modern ocean is in an aerobic state, ammonia is oxidized and the concentration is low. 
-starting.NH4_D = 2.15995e12 ; %%mol (0.6 mmol/m3 * starting.Water_D /1000)           Except for the Black Sea, which is deep because of lack of oxygen. Ammonia concentration can reach 50mmol/m3,  
-starting.NH4_S = 2.49255e13 ; %%mol (0.5 mmol/m3 * starting.Water_S /1000)
-starting.NH4_DP = 0.37996e15 ; %%mol (0.3 mmol/m3 * starting.Water_DP /1000)
+starting.NO3_P = 3.96e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
+starting.NO3_D = 5.4e13 ; %%mol (15 mmol/m3 * starting.Water_D /1000)
+starting.NO3_S = 8.9694e14 ; %%mol (18 mmol/m3 * starting.Water_S /1000)
+starting.NO3_DP = 4.6e16 ; %%mol (35.4 mmol/m3 * starting.Water_DP /1000)
+starting.NH4_P = 1.44e10 ; %%mol (0.4 mmol/m3 * starting.Water_P /1000)  %note: Because the modern ocean is in an aerobic state, ammonia is oxidized and the concentration is low. 
+starting.NH4_D = 0.72e12 ; %%mol (0.2 mmol/m3 * starting.Water_D /1000)           Except for the Black Sea, which is deep because of lack of oxygen. Ammonia concentration can reach 50mmol/m3,  
+starting.NH4_S = 4.983e12 ; %%mol (0.1 mmol/m3 * starting.Water_S /1000)
+starting.NH4_DP = 0.013e15 ; %%mol (0.01 mmol/m3 * starting.Water_DP /1000)
 %%%%
 pars.y(24) = starting.NO3_P ; 
 pars.y(25) = starting.NO3_D ; 
@@ -158,14 +158,14 @@ present.O2_S =1.6145e16 ;
 present.O2_P = 4.5e12 ;
 
 %%%%N Cycle
-present.NO3_P = 4e11 ; 
-present.NO3_D = 6.55e13 ; 
-present.NO3_S = 8.3e14 ; 
-present.NO3_DP = 4.55e16 ;
-present.NH4_P = 4.4e10 ; 
-present.NH4_D = 2.15995e12 ; 
-present.NH4_S = 2.49255e13 ; 
-present.NH4_DP = 0.37996e15 ;
+present.NO3_P = 3.96e11 ; 
+present.NO3_D = 5.4e13 ; 
+present.NO3_S = 8.9694e14 ; 
+present.NO3_DP = 4.6e16 ;
+present.NH4_P = 1.44e10 ; 
+present.NH4_D = 0.72e12 ; 
+present.NH4_S = 4.983e12 ; 
+present.NH4_DP = 0.013e15 ;
 
 
 %% Starting concentrations 
