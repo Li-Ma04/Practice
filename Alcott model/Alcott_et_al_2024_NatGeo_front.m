@@ -209,6 +209,7 @@ pars.kWF6 = 378e12 / starting.Water_DP;
 
 % Primary production in Water_P
 pars.Redfield_CP = 106 ; %C:P ratio redfield
+pars.Redfield_CN =  6.63; %C:P ratio redfield
 pars.Redfield_CO2 = 106/138; %C:O2 ratio redfield
 
 starting.Prox_Prod_Photo = 3.975e13 ; 

@@ -208,7 +208,17 @@ Norm_O2_A = O2_A / present.O2_A ;
 %% Marine Carbon Cycle
 
 % Primary production in Proximal
-PP_P = pars.kPhotoprox * Norm_SRP_P * pars.Redfield_CP ; 
+total_N_conc_prox = ( y(24) + y(28) ) /y(1) ;
+norm_total_N_conc_prox = total_N_conc_prox / ( (present.NO3_P + present.NH4_P) /starting.Water_P )  ;
+
+if SRP_Pconc < total_N_conc_prox/16
+    PP_P = pars.kPhotoprox * Norm_SRP_P * pars.Redfield_CP ; 
+else
+    PP_P = pars.kPhotoprox * norm_total_N_conc_prox * pars.Redfield_CN ; 
+end
+
+
+
 
 % POC mineralisation in Proximal
 POC_Min_P = pars.kminprox * Norm_POC_P ;
