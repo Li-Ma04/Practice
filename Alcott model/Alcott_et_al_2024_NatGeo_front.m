@@ -111,10 +111,10 @@ pars.y(20) = starting.OP_DP ; %mol
 
 
 %% Nitrate and NH4
-starting.NO3_P = 3.96e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
-starting.NO3_D = 5.4e13 ; %%mol (15 mmol/m3 * starting.Water_D /1000)
-starting.NO3_S = 8.9694e14 ; %%mol (18 mmol/m3 * starting.Water_S /1000)
-starting.NO3_DP = 4.6e16 ; %%mol (35.4 mmol/m3 * starting.Water_DP /1000)
+starting.NO3_P = 4.65e11 ; %%mol (12.5 mmol/m3 * starting.Water_P /1000)
+starting.NO3_D = 5.75e13 ; %%mol (15 mmol/m3 * starting.Water_D /1000)
+starting.NO3_S = 7.35e14 ; %%mol (18 mmol/m314.2 * starting.Water_S /1000)
+starting.NO3_DP = 4.225e16 ; %%mol (35.4 mmol/m3 * starting.Water_DP /1000)
 starting.NH4_P = 1.44e10 ; %%mol (0.4 mmol/m3 * starting.Water_P /1000)  %note: Because the modern ocean is in an aerobic state, ammonia is oxidized and the concentration is low. 
 starting.NH4_D = 0.72e12 ; %%mol (0.2 mmol/m3 * starting.Water_D /1000)           Except for the Black Sea, which is deep because of lack of oxygen. Ammonia concentration can reach 50mmol/m3,  
 starting.NH4_S = 4.983e12 ; %%mol (0.1 mmol/m3 * starting.Water_S /1000)
@@ -158,10 +158,10 @@ present.O2_S =1.6145e16 ;
 present.O2_P = 4.5e12 ;
 
 %%%%N Cycle
-present.NO3_P = 3.96e11 ; 
-present.NO3_D = 5.4e13 ; 
-present.NO3_S = 8.9694e14 ; 
-present.NO3_DP = 4.6e16 ;
+present.NO3_P = 4.65e11 ; 
+present.NO3_D = 5.75e13 ; 
+present.NO3_S = 7.35e14 ; 
+present.NO3_DP = 4.225e16 ;
 present.NH4_P = 1.44e10 ; 
 present.NH4_D = 0.72e12 ; 
 present.NH4_S = 4.983e12 ; 
@@ -209,7 +209,7 @@ pars.kWF6 = 378e12 / starting.Water_DP;
 
 % Primary production in Water_P
 pars.Redfield_CP = 106 ; %C:P ratio redfield
-pars.Redfield_CN =  6.63; %C:P ratio redfield
+pars.Redfield_CN = 106/15; %C:P ratio redfield
 pars.Redfield_CO2 = 106/138; %C:O2 ratio redfield
 
 starting.Prox_Prod_Photo = 3.975e13 ; 

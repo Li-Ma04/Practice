@@ -15,7 +15,7 @@ hold on
 box on
 %%
 subplot(4,4,3)
-plot(state.time/10e5,state.O2_A/present.O2_A)
+semilogy(state.time/10e5,state.O2_A/present.O2_A)
 xlabel('Time (Ma)')
 ylabel('O_{2} (atmosphere) (PAL)')
 hold on
@@ -63,7 +63,7 @@ hold on
 plot(state.time/10e5,state.Atmos_Weather)
 hold on
 box on
-xlabel('Time (Ma)'),ylabel('x'),legend('Total organic carbon burial','Oxidative Weathering')
+xlabel('Time (Ma)'),ylabel('TOC burial and Weathering'),legend('Total organic carbon burial','Oxidative Weathering')
 %%%
 subplot(4,4,9)
 semilogy(state.time/10e5,state.SRP_Pconc)
@@ -78,9 +78,15 @@ hold on
 box on
 %%
 subplot(4,4,10)
-plot(state.time/10e5,state.River_SRP)
+plot(state.time/10e5,state.PP_P)
+hold on
+plot(state.time/10e5,state.PP_D)
+hold on
+plot(state.time/10e5,state.PP_S)
+hold on
 xlabel('Time (Ma)')
-ylabel('Riverine P input')
+ylabel('primary production')
+legend('proximal','distal','surface')
 hold on
 box on
 %%
@@ -106,7 +112,7 @@ hold on
 plot(state.time/10e5,state.C)
 hold on
 box on
-xlabel('Time (Ma)'),ylabel(''),legend('Biological weathering enhancement','Exposed landmass','Crustal carbon reservoir')
+xlabel('Time (Ma)'),ylabel('focrce'),legend('Biological weathering enhancement','Exposed landmass','Crustal carbon reservoir')
 %%
 
 subplot(4,4,14)
@@ -115,7 +121,7 @@ hold on
 plot(state.time/10e5,state.fanoxicdist)
 hold on
 box on
-xlabel('Time (Ma)'),ylabel('f'),legend('proximal anoxic','distal anoxic')
+xlabel('Time (Ma)'),ylabel('fanoxic'),legend('proximal anoxic','distal anoxic')
 %%
 
 %%%

@@ -207,18 +207,22 @@ Norm_O2_A = O2_A / present.O2_A ;
 
 %% Marine Carbon Cycle
 
+
+%%%%%%%%%%%%%%%%%%%%%Proximal zone
+%%%%%%%%%Carbon Cycle
 % Primary production in Proximal
-total_N_conc_prox = ( y(24) + y(28) ) /y(1) ;
-norm_total_N_conc_prox = total_N_conc_prox / ( (present.NO3_P + present.NH4_P) /starting.Water_P )  ;
+PP_P = pars.kPhotoprox * Norm_SRP_P * pars.Redfield_CP ;
 
-if SRP_Pconc < total_N_conc_prox/16
-    PP_P = pars.kPhotoprox * Norm_SRP_P * pars.Redfield_CP ; 
-else
-    PP_P = pars.kPhotoprox * norm_total_N_conc_prox * pars.Redfield_CN ; 
-end
+%Primary production in Proximal
+total_N_Pconc = ( y(24) + y(28) ) /y(1) ;
+norm_total_N_Pconc = total_N_Pconc / ( (present.NO3_P + present.NH4_P) /starting.Water_P )  ;
 
-
-
+% 
+% if SRP_Pconc < total_N_Pconc/16
+%     PP_P = pars.kPhotoprox * Norm_SRP_P * pars.Redfield_CP ; 
+% else
+%     PP_P = pars.kPhotoprox * norm_total_N_Pconc * pars.Redfield_CN ; 
+% end
 
 % POC mineralisation in Proximal
 POC_Min_P = pars.kminprox * Norm_POC_P ;
@@ -230,8 +234,22 @@ XP_P_D = OP_P_D * pars.Redfield_CP ;
 % Proximal sediment POC burial
 POC_P_Burial = pars.Prox_C_Bur * PP_P ; 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%Distal zone
+%%%%%%%%%%%%%%%%%%%%%Carbon Cycle
+
 % Primary Production in Distal
 PP_D = pars.kPhotodist * Norm_SRP_D * pars.Redfield_CP ; 
+
+%Primary production in Distal
+total_N_Dconc = ( y(25) + y(29) ) /y(2) ;
+norm_total_N_Dconc = total_N_Dconc / ( (present.NO3_D + present.NH4_D) /starting.Water_D )  ;
+
+
+% if SRP_Dconc < total_N_Dconc/16
+%     PP_D = pars.kPhotodist * Norm_SRP_D * pars.Redfield_CP ; 
+% else
+%     PP_D = pars.kPhotodist * norm_total_N_Dconc * pars.Redfield_CN ; 
+% end
 
 % POC mineralisation in Distal
 POC_Min_D = pars.kmindist * Norm_POC_D ; 
@@ -243,8 +261,21 @@ XP_D_S = OP_D_S * pars.Redfield_CP ;
 % Distal sediment POC burial
 POC_D_Burial = pars.Dist_C_Bur * ( XP_P_D + PP_D ) ; 
 
+%%%%%%%%%%%%%%%%%%%%Surface zone
+%%%%%%%%%%%%%%Carbon Cycle
+
 % Primary Production in Surface
 PP_S = pars.kPhotosurf * Norm_SRP_S * pars.Redfield_CP ; 
+
+% Primary production in surface 
+total_N_Sconc = ( y(26) + y(30) ) /y(3) ;
+norm_total_N_Sconc = total_N_Sconc / ( (present.NO3_S + present.NH4_S) /starting.Water_S )  ;
+
+% if SRP_Sconc < total_N_Sconc/16
+%     PP_S = pars.kPhotosurf * Norm_SRP_S * pars.Redfield_CP ; 
+% else
+%     PP_S = pars.kPhotosurf * norm_total_N_Sconc * pars.Redfield_CN ; 
+% end
 
 % POC mineralisation in Surface
 POC_Min_S = pars.kminsurf * Norm_POC_S ; 
@@ -252,6 +283,8 @@ POC_Min_S = pars.kminsurf * Norm_POC_S ;
 % POC export from Surface to Deep
 XP_S_DP = pars.Surf_Deep_XP * ( XP_D_S + PP_S ) ; 
 
+%%%%%%%%%%%%%%%%%%%%Deep ocean zone
+%%%%%%%%%%%%%Carbon Cycle
 % POC respiration in Water_DP
 POC_DP_Resp = pars.kCF12 * Norm_POC_DP ; 
 
@@ -275,6 +308,7 @@ else
      POC_DP_Burial = pars.CPoxic * OP_DP_Burial ;    
 end
 
+
 %Carbon Proximal Zone
 dy(5) = PP_P - POC_Min_P - POC_P_Burial  - XP_P_D ;
 
@@ -290,7 +324,7 @@ dy(8) = XP_S_DP - POC_DP_Resp - POC_DP_Burial ;
 POCTotal = PP_P - POC_Min_P - POC_P_Burial  - XP_P_D + XP_P_D + PP_D - POC_D_Burial - POC_Min_D - XP_D_S +XP_D_S + PP_S - POC_Min_S - XP_S_DP + XP_S_DP - POC_DP_Resp - POC_DP_Burial;
 
 
-%% Oxygen Cycle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Oxygen Cycle
 
 % fanoxic parameters (From Watson et al., 2017)
 kanox = 10 ; 
@@ -298,8 +332,20 @@ O2O20 = Norm_O2_A ;
 kU = 0.4 ;
 
 % fanoxic calculation from Watson et al., 2017
-fanoxicdist = 1 / ( 1 + exp(-kanox * ( kU * Norm_SRP_D - O2O20 ) ) ) ; 
-fanoxicprox = 1 / ( 1 + exp(-kanox * ( kU * Norm_SRP_P - O2O20 ) ) ) ; 
+%%%%proximal zone
+newp_P = 117 * min(total_N_Pconc/16,SRP_Pconc) ; 
+newp_P0 = 117 * min( ( (present.NO3_P + present.NH4_P) /starting.Water_P )/16,(present.SRP_P/starting.Water_P)) ;
+Norm_newp_P = newp_P / newp_P0 ;
+fanoxicprox = 1 / ( 1 + exp(-kanox * ( kU * Norm_newp_P - O2O20 ) ) ) ; 
+% %%%%distal zone
+newp_D = 117 * min(total_N_Dconc/16,SRP_Dconc) ; 
+newp_D0 = 117 * min( ( (present.NO3_D + present.NH4_D) /starting.Water_D )/16,(present.SRP_D/starting.Water_D)) ;
+Norm_newp_D = newp_D / newp_D0 ;
+fanoxicdist = 1 / ( 1 + exp(-kanox * ( kU * Norm_newp_D - O2O20 ) ) ) ; 
+
+% fanoxicprox = 1 / ( 1 + exp(-kanox * ( kU * Norm_SRP_P - O2O20 ) ) ) ; 
+% fanoxicdist = 1 / ( 1 + exp(-kanox * ( kU * Norm_SRP_D - O2O20 ) ) ) ; 
+
 
 present.fanoxicprox = 0.0025 ;
 present.fanoxicdist = 0.0025 ;
@@ -351,7 +397,7 @@ Flocb = pars.Flocb_0 * locb ;
 %% Oxygen atmosphere
 dy(21) = Total_POC_Burial - Atmos_Weather - FrgfO2 + Flocb ;
 
-%% Carbon isotope
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Carbon isotope
 
 %Oxidative weathering
 Foxidw = Atmos_Weather ; %Used to match oxidative weathering for the oxygen model
@@ -476,7 +522,6 @@ SRP_DP_S = SRP_DPconc * Water_DP_S ;
 
 % SRP upwelling Water_DP to Water_D
 SRP_DP_D = Water_DP_D * SRP_DPconc ; 
-
 
 %% Proximal Coastal
 %O2 limit for scavenging
@@ -654,70 +699,64 @@ NH4_DP_S = NH4_DPconc * Water_DP_S ;
 % NH4_Nfix_D = 1e12  ;
 % NH4_Nfix_S = 10e12  ;
 
-NH4_PNfix = 9e11  ;
-NH4_DNfix = 1e12  ;
-NH4_SNfix = 10e12  ;
+NH4_PNfix = 1e12  ;
+NH4_DNfix = 2.5e12  ;
+NH4_SNfix = 10.4e12  ;
 
 %%%% Proximal
 
-if (NH4_P/16) < SRP_P  
-    NH4_Nfix_P = NH4_PNfix * ( ( ( SRP_P - (NH4_P/16)  ) / ( present.SRP_P - (present.NH4_P/16)    ) )^2 ) ;
-else
-    NH4_Nfix_P = 0 ;
-end
-
-%%%% Distal
-
-if (NH4_D/16) < SRP_D 
-    NH4_Nfix_D = NH4_DNfix * ( ( ( SRP_D - (NH4_D/16)  ) / ( present.SRP_D - (present.NH4_D/16)    ) )^2 ) ;
-else
-    NH4_Nfix_D = 0 ;
-end
-
-%%%% Surface Ocean
-
-if (NH4_S/16) < SRP_S
-    NH4_Nfix_S = NH4_SNfix * ( ( ( SRP_S - (NH4_S/16)  ) / ( present.SRP_S - (present.NH4_S/16)    ) )^2 ) ;
-else
-    NH4_Nfix_S = 0 ;
-end
-
-%% N fix Another definition
-%% %%%%% Proximal
-% N_P = y(24) + y(28) ; %% Sum of NO3 and NH4 in Proximal
-% present.N_P = present.NO3_P + present.NH4_P ; %%% N reservoir present day sizes
-% P_P = y(13) + y(14) ; %%Sum of SPR and OP in Proximal
-% present.P_P = present.SRP_P + present.OP_P ; %%P reservoir present day sizes
-% 
-% if (N_P/16) < SRP_P 
-%     NH4_Nfix_P = NH4_PNfix * ( ( ( SRP_P - (N_P/16)  ) / ( present.SRP_P - (present.N_P/16)    ) )^2 ) ;
+% if (NH4_P/16) < SRP_P  
+%     NH4_Nfix_P = NH4_PNfix * ( ( ( SRP_P - (NH4_P/16)  ) / ( present.SRP_P - (present.NH4_P/16)    ) )^2 ) ;
 % else
 %     NH4_Nfix_P = 0 ;
 % end
 % 
-% %%%%% Distal
-% N_D = y(25) + y(29) ; 
-% present.N_D = present.NO3_D + present.NH4_D ; 
-% P_D = y(15) + y(16) ; 
-% present.P_D = present.SRP_D + present.OP_D ; 
+% %%%% Distal
 % 
-% if (N_D/16) < SRP_D
-%     NH4_Nfix_D = NH4_DNfix * ( ( ( SRP_D - (N_D/16)  ) / ( present.SRP_D - (present.N_D/16)    ) )^2 ) ;
+% if (NH4_D/16) < SRP_D 
+%     NH4_Nfix_D = NH4_DNfix * ( ( ( SRP_D - (NH4_D/16)  ) / ( present.SRP_D - (present.NH4_D/16)    ) )^2 ) ;
 % else
 %     NH4_Nfix_D = 0 ;
 % end
 % 
-% %%%%% Surface Ocean
-% N_S = y(26) + y(30) ; 
-% present.N_S = present.NO3_S + present.NH4_S ; 
-% P_S = y(17) + y(18) ; 
-% present.P_S = present.SRP_S + present.OP_S ; 
+% %%%% Surface Ocean
 % 
-% if (N_S/16) < SRP_S 
-%     NH4_Nfix_S = NH4_SNfix * ( ( ( SRP_S - (N_S/16)  ) / ( present.SRP_S - (present.N_S/16)    ) )^2 ) ;
+% if (NH4_S/16) < SRP_S
+%     NH4_Nfix_S = NH4_SNfix * ( ( ( SRP_S - (NH4_S/16)  ) / ( present.SRP_S - (present.NH4_S/16)    ) )^2 ) ;
 % else
 %     NH4_Nfix_S = 0 ;
 % end
+
+%% N fix Another definition
+%% %%%%% Proximal
+N_P = y(24) + y(28) ; %% Sum of NO3 and NH4 in Proximal
+present.N_P = present.NO3_P + present.NH4_P ; %%% N reservoir present day sizes
+
+if (N_P/16) < SRP_P 
+    NH4_Nfix_P = NH4_PNfix * ( ( ( SRP_P - (N_P/16)  ) / ( present.SRP_P - (present.N_P/16)    ) )^2 ) ;
+else
+    NH4_Nfix_P = 0 ;
+end
+
+%%%%% Distal
+N_D = y(25) + y(29) ; 
+present.N_D = present.NO3_D + present.NH4_D ; 
+
+if (N_D/16) < SRP_D
+    NH4_Nfix_D = NH4_DNfix * ( ( ( SRP_D - (N_D/16)  ) / ( present.SRP_D - (present.N_D/16)    ) )^2 ) ;
+else
+    NH4_Nfix_D = 0 ;
+end
+
+%%%%% Surface Ocean
+N_S = y(26) + y(30) ; 
+present.N_S = present.NO3_S + present.NH4_S ; 
+
+if (N_S/16) < SRP_S 
+    NH4_Nfix_S = NH4_SNfix * ( ( ( SRP_S - (N_S/16)  ) / ( present.SRP_S - (present.N_S/16)    ) )^2 ) ;
+else
+    NH4_Nfix_S = 0 ;
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%Loss of NO3 during denitrification in different zone	
 % NO3_denit_P = 1e12  ;%Present level
@@ -725,11 +764,15 @@ end
 % NO3_denit_S = 4.3e12 ;
 % NO3_denit_DP = 5.1e12  ;
 
-NO3_Pdenit = 1.07e12 ;%Present level
-NO3_Ddenit = 6.21e12 ;
-NO3_Sdenit = 5.21e12 ;
-NO3_DPdenit = 7.95e12  ;
+% NO3_Pdenit = 1.07e12 ;nifX defined by NH4
+% NO3_Ddenit = 6.21e12 ;
+% NO3_Sdenit = 5.21e12 ;
+% NO3_DPdenit = 7.95e12  ;
 
+NO3_Pdenit = 0.1e12 ;
+NO3_Ddenit = 5e12 ;
+NO3_Sdenit = 3.4e12 ;
+NO3_DPdenit = 7e12  ;
 %%%%% Proximal
 NO3_denit_P = 0.5 * NO3_Pdenit *  ( 1 + ( fanoxicprox / present.fanoxicprox ) ) * (NO3_P/present.NO3_P) * sigmf((log10(NO3_Pconc)),[3,NO3_floor]) ;
 
@@ -756,24 +799,28 @@ NO3_denit_DP = 0.5 *NO3_DPdenit * ( 2 + ( 1 - ( min(O2_DPconc,2) / present.Conc_
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Variable nitrification
 %%%%% Proximal
-k_P_nitrification = 2.96281e15 ;
+%k_P_nitrification = 2.96281e15 ;nifX defined by NH4 8:2
+k_P_nitrification = 0.6942e15 ;
 NO3_PNitri = starting.NH4_Pconc*k_P_nitrification ; %Present level
 NO3_Nitri_P = NO3_PNitri * (O2_Pconc / present.Conc_O2_P) * (NH4_P/present.NH4_P) * sigmf((log10(NH4_Pconc)),[3,NH4_floor]) ;
 
 %%%% Distal
-k_D_nitrification = 7.8835e16 ;
+%k_D_nitrification = 7.8835e16 ;nifX defined by NH4
+k_D_nitrification = 8.42e16 ;
 NO3_DNitri = starting.NH4_Dconc*k_D_nitrification ;
 NO3_Nitri_D = NO3_DNitri * (O2_Dconc / present.Conc_O2_D) * (NH4_D/present.NH4_D) * sigmf((log10(NH4_Dconc)),[3,NH4_floor]) ; 
 
 %%%%% Surface Ocean
-k_S_nitrification = 4.2635e18 ;
+%k_S_nitrification = 4.2635e18 ;nifX defined by NH4
+k_S_nitrification = 4.216e18 ;
 NO3_SNitri = starting.NH4_Sconc*k_S_nitrification ;
 NO3_Nitri_S = NO3_SNitri * (min(O2_Sconc,2) / present.Conc_O2_S)  * (NH4_S/present.NH4_S) * sigmf((log10(NH4_Sconc)),[3,NH4_floor]) ; 
 
 %%%%% Deep Ocean
-k_DP_nitrification = 8.0685e18 ;
+%k_DP_nitrification = 8.0685e18 ;nifX defined by NH4
+k_DP_nitrification = 8.069e18 ;
 NO3_DPNitri = starting.NH4_DPconc*k_DP_nitrification ;
-NO3_Nitri_DP = NO3_DPNitri *(min(O2_DPconc,2) / present.Conc_O2_deep) * (NH4_DP/present.NH4_DP);% * sigmf((log10(NH4_DPconc)),[3,NH4_floor]) ; 
+NO3_Nitri_DP = NO3_DPNitri *(min(O2_DPconc,2) / present.Conc_O2_deep) * (NH4_DP/present.NH4_DP) ;%* sigmf((log10(NH4_DPconc)),[3,NH4_floor]) ; 
 
 
  
@@ -875,6 +922,10 @@ workingstate.FrgfO2(stepnumber,1) = FrgfO2 ;
 
 workingstate.O2_DP(stepnumber,1) = O2_DP ;
 workingstate.O2_A(stepnumber,1) = O2_A ;
+workingstate.PP_P(stepnumber,1) = PP_P ;
+workingstate.PP_D(stepnumber,1) = PP_D ;
+workingstate.PP_S(stepnumber,1) = PP_S ;
+
 
 workingstate.SRP_Pconc(stepnumber,1) = SRP_Pconc ;
 workingstate.SRP_Dconc(stepnumber,1) = SRP_Dconc ;
