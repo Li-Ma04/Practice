@@ -113,11 +113,11 @@ pars.y(20) = starting.OP_DP ; %mol
 %% Nitrate and NH4
 starting.NO3_P = 4e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
 starting.NO3_D = 8.9e13 ; %%mol (15/24 mmol/m3 * starting.Water_D /1000)
-starting.NO3_S = 1.3e15 ; %%mol (18/27 mmol/m3 * starting.Water_S /1000)
-starting.NO3_DP = 4.255e16 ; %%mol (35 mmol/m3 * starting.Water_DP /1000)
+starting.NO3_S = 9e14 ; %%mol (18/27 mmol/m3 * starting.Water_S /1000)
+starting.NO3_DP = 4.65e16 ; %%mol (35 mmol/m3 * starting.Water_DP /1000)
 starting.NH4_P = 1.44e10 ; %%mol (0.4 mmol/m3 * starting.Water_P /1000)  %note: Because the modern ocean is in an aerobic state, ammonia is oxidized and the concentration is low. 
 starting.NH4_D = 0.72e12 ; %%mol (0.2 mmol/m3 * starting.Water_D /1000)           Except for the Black Sea, which is deep because of lack of oxygen. Ammonia concentration can reach 50mmol/m3,  
-starting.NH4_S = 4.983e12 ; %%mol (0.1 mmol/m3 * starting.Water_S /1000)
+starting.NH4_S = 3.609e12 ; %%mol (0.07 mmol/m3 * starting.Water_S /1000)
 starting.NH4_DP = 0.013e15 ; %%mol (0.01 mmol/m3 * starting.Water_DP /1000)
 %%%%
 pars.y(24) = starting.NO3_P ; 
@@ -160,11 +160,11 @@ present.O2_P = 4.5e12 ;
 %%%%N Cycle
 present.NO3_P = 4e11 ; 
 present.NO3_D = 8.9e13 ; 
-present.NO3_S = 1.3e15 ;
-present.NO3_DP = 4.255e16 ;
+present.NO3_S = 9e14 ;
+present.NO3_DP = 4.65e16 ;
 present.NH4_P = 1.44e10 ; 
 present.NH4_D = 0.72e12 ; 
-present.NH4_S = 4.983e12 ; 
+present.NH4_S = 3.609e12 ; 
 present.NH4_DP = 0.013e15 ;
 
 
@@ -503,4 +503,6 @@ fprintf('time (s): %d \n', endtime )
 
 single_run_plot
 single_run_plot_N
+single_run_plot_NO3
+single_run_plot_NH4
 
