@@ -111,13 +111,13 @@ pars.y(20) = starting.OP_DP ; %mol
 
 
 %% Nitrate and NH4
-starting.NO3_P = 4e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
-starting.NO3_D = 8.9e13 ; %%mol (15/24 mmol/m3 * starting.Water_D /1000)
-starting.NO3_S = 9e14 ; %%mol (18/27 mmol/m3 * starting.Water_S /1000)
-starting.NO3_DP = 4.65e16 ; %%mol (35 mmol/m3 * starting.Water_DP /1000)
+starting.NO3_P = 1.44e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
+starting.NO3_D = 5.5e13 ; %%mol (15/24 mmol/m3 * starting.Water_D /1000)
+starting.NO3_S = 6e14 ; %%mol (18/27 mmol/m3 * starting.Water_S /1000)
+starting.NO3_DP = 3.91e16 ; %%mol (35 mmol/m3 * starting.Water_DP /1000)
 starting.NH4_P = 1.44e10 ; %%mol (0.4 mmol/m3 * starting.Water_P /1000)  %note: Because the modern ocean is in an aerobic state, ammonia is oxidized and the concentration is low. 
 starting.NH4_D = 0.72e12 ; %%mol (0.2 mmol/m3 * starting.Water_D /1000)           Except for the Black Sea, which is deep because of lack of oxygen. Ammonia concentration can reach 50mmol/m3,  
-starting.NH4_S = 3.609e12 ; %%mol (0.07 mmol/m3 * starting.Water_S /1000)
+starting.NH4_S = 3.62e12 ; %%mol (0.07 mmol/m3 * starting.Water_S /1000)
 starting.NH4_DP = 0.013e15 ; %%mol (0.01 mmol/m3 * starting.Water_DP /1000)
 %%%%
 pars.y(24) = starting.NO3_P ; 
@@ -158,13 +158,13 @@ present.O2_S =1.6145e16 ;
 present.O2_P = 4.5e12 ;
 
 %%%%N Cycle
-present.NO3_P = 4e11 ; 
-present.NO3_D = 8.9e13 ; 
-present.NO3_S = 9e14 ;
-present.NO3_DP = 4.65e16 ;
+present.NO3_P = 1.44e11 ; 
+present.NO3_D = 5.5e13 ; 
+present.NO3_S = 6e14 ;
+present.NO3_DP = 3.91e16 ;
 present.NH4_P = 1.44e10 ; 
 present.NH4_D = 0.72e12 ; 
-present.NH4_S = 3.609e12 ; 
+present.NH4_S = 3.62e12 ; 
 present.NH4_DP = 0.013e15 ;
 
 
@@ -209,11 +209,12 @@ pars.kWF6 = 378e12 / starting.Water_DP;
 
 % Primary production in Water_P
 pars.Redfield_CP = 106 ; %C:P ratio redfield
-pars.Redfield_CN = 106/15; %C:P ratio redfield
+pars.Redfield_CN = 106/16; %C:P ratio redfield
 pars.Redfield_CO2 = 106/138; %C:O2 ratio redfield
 
 starting.Prox_Prod_Photo = 3.975e13 ; 
 pars.kPhotoprox = starting.Prox_Prod_Photo / pars.Redfield_CP  ;
+pars.NPhotoprox = starting.Prox_Prod_Photo / pars.Redfield_CN  ;
 
 % POC export from Water_P to Water_D
 OP_P_D_0 = starting.OP_Pconc * Water_P_D_0 ;
@@ -230,6 +231,7 @@ pars.kminprox = POC_P_Min_0 ;
 % Primary Production in Dist_Water
 starting.PP_D_0 = 5.6e14 ;
 pars.kPhotodist = starting.PP_D_0 / pars.Redfield_CP  ;
+pars.NPhotodist = starting.PP_D_0 / pars.Redfield_CN  ;
 
 % POC Export from Distal to Surface
 Dist_OP_S_0 = starting.OP_Dconc * Water_D_S_0 ; 
@@ -246,6 +248,7 @@ pars.kmindist = POC_Min_D_0 ;
 % Primary Production in Surf_Water
 PP_S_0 = 3.8688e15 ;
 pars.kPhotosurf = PP_S_0 /  pars.Redfield_CP ;
+pars.NPhotosurf = PP_S_0 /  pars.Redfield_CN ;
 
 % monod constant for oxic respiration 
 pars.KmO2 = 0.0001 ; 
@@ -501,8 +504,10 @@ fprintf('Done: ')
 endtime = toc ;
 fprintf('time (s): %d \n', endtime )
 
-single_run_plot
-single_run_plot_N
-single_run_plot_NO3
-single_run_plot_NH4
+  single_run_plot
+  single_run_plot_N
+% % % single_run_plot_NO3
+% % % single_run_plot_NH4
+  single_run_plot_limit
+
 

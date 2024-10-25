@@ -120,8 +120,10 @@ plot(state.time/10e5,state.fanoxicprox)
 hold on
 plot(state.time/10e5,state.fanoxicdist)
 hold on
+% plot(state.time/10e5,state.fanoxicsurf)
+% hold on
 box on
-xlabel('Time (Ma)'),ylabel('fanoxic'),legend('proximal anoxic','distal anoxic')
+xlabel('Time (Ma)'),ylabel('fanoxic'),legend('proximal anoxic','distal anoxic','surface anoxic')
 %%
 
 %%%
