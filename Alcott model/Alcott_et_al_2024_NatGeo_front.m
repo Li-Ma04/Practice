@@ -111,7 +111,7 @@ pars.y(20) = starting.OP_DP ; %mol
 
 
 %% Nitrate and NH4
-starting.NO3_P = 1.44e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
+starting.NO3_P = 1.6e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
 starting.NO3_D = 5.5e13 ; %%mol (15/24 mmol/m3 * starting.Water_D /1000)
 starting.NO3_S = 6e14 ; %%mol (18/27 mmol/m3 * starting.Water_S /1000)
 starting.NO3_DP = 3.91e16 ; %%mol (35 mmol/m3 * starting.Water_DP /1000)
@@ -158,7 +158,7 @@ present.O2_S =1.6145e16 ;
 present.O2_P = 4.5e12 ;
 
 %%%%N Cycle
-present.NO3_P = 1.44e11 ; 
+present.NO3_P = 1.6e11 ; 
 present.NO3_D = 5.5e13 ; 
 present.NO3_S = 6e14 ;
 present.NO3_DP = 3.91e16 ;
@@ -324,7 +324,7 @@ pars.Deep_C_Bur = starting.POC_DP_Burial_0 / ( pars.kPrel_deep * starting.POC_DP
 %% Proximal Coastal
 
 % Present day fanoxic value used in proximal and distal boxes (Watson et al., 2017)
-starting.fanoxic = 0.0025 ; 
+%starting.fanoxic = 0.0025 ; 
 
 % Riverine P input.
 pars.River_SRP_0 = 0.09e12 ; %Slomp and VC, 2007; Berner and Rao,1994
@@ -344,7 +344,7 @@ P_FeP_P_0 = pars.kFePprox * starting.SRP_P ;
 
 % Proximal sediment POP burial
 pars.korgP_prox = 1 ;
-OP_P_Burial_0 = pars.Prox_C_Bur * starting.Prox_Prod_Photo * ( ( ( 1-starting.fanoxic ) / pars.CPoxic ) + ( starting.fanoxic / 1100 ) ) ;
+OP_P_Burial_0 = pars.Prox_C_Bur * (starting.Prox_Prod_Photo / pars.CPoxic) ; %* ( ( ( 1-starting.fanoxic ) / pars.CPoxic ) + ( starting.fanoxic / 1100 ) ) ;
 
 % POP mineralisation in Proximal 
 OP_P_Min_0 = P_PP_P_0 - OP_P_Burial_0 - OP_P_D_0 ; 
@@ -352,7 +352,7 @@ pars.kPrel_prox = OP_P_Min_0 ;
 
 % Proximal CaP burial for steady state
 P_AuthP_P_0 = pars.River_SRP_0 + OP_P_Min_0 - SRP_P_D_0 - P_FeP_P_0 - P_PP_P_0 ; 
-pars.kCaP_P = P_AuthP_P_0 / ( OP_P_Min_0 * ( 1 - starting.fanoxic ) ) ; %NEW
+pars.kCaP_P = P_AuthP_P_0 /  OP_P_Min_0 ; %* ( 1 - starting.fanoxic ) ) ; %NEW
 %% Distal P
 
 % SRP open ocean upwelling. Deep to Surface transport
@@ -373,11 +373,11 @@ Dist_OP_S_0 = starting.OP_Dconc * Water_D_S_0 ;
 % Distal sediment FeP burial
 pars.kPF9 = 0.00135238 ; % As used in Slomp and VC, 2007. 
 P_FeP_D_0 = starting.SRP_D * pars.kPF9 ;
-pars.kFePDOADist = P_FeP_D_0 / ( starting.SRP_D * (1 - starting.fanoxic) ) ;
+pars.kFePDOADist = P_FeP_D_0 /  starting.SRP_D ; %* (1 - starting.fanoxic) ) ;
 
 % Distal sediment POP burial
 OP_D_Burial_0 = starting.POC_D_Burial_0 / pars.CPoxic ;
-pars.kPOPDOADist = OP_D_Burial_0 / ( (starting.PP_D_0 + XP_P_D_0 ) * ( ( ( 1- starting.fanoxic ) / pars.CPoxic ) + ( starting.fanoxic / 1100 ) ) ) ;
+pars.kPOPDOADist = OP_D_Burial_0 / ( (starting.PP_D_0 + XP_P_D_0 )  / pars.CPoxic) ; %( ( ( 1- starting.fanoxic ) / pars.CPoxic ) + ( starting.fanoxic / 1100 ) ) ) ;
 
 % POP mineralisation in Distal
 OP_D_Min_0 = P_PP_D_0 + OP_P_D_0 - OP_D_Burial_0 - Dist_OP_S_0 ; 
@@ -385,7 +385,7 @@ pars.kPrel_dist = OP_D_Min_0 ;
 
 % Distal Sediment CaP burial
 P_AuthP_D_0 = SRP_P_D_0 - P_PP_D_0 + OP_D_Min_0 - P_FeP_D_0 - SRP_D_S_0 + Deep_Dist_P_0; 
-pars.kCaPDOADist = P_AuthP_D_0 / ( OP_D_Min_0 *(1-starting.fanoxic) ) ;
+pars.kCaPDOADist = P_AuthP_D_0 /  OP_D_Min_0 ; %*(1-starting.fanoxic) ) ;
 
 
 %% Surface Ocean P

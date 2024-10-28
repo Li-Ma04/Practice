@@ -116,14 +116,16 @@ xlabel('Time (Ma)'),ylabel('focrce'),legend('Biological weathering enhancement',
 %%
 
 subplot(4,4,14)
-plot(state.time/10e5,state.fanoxicprox)
+plot(state.time/10e5,state.O2_Pconc)
 hold on
-plot(state.time/10e5,state.fanoxicdist)
+plot(state.time/10e5,state.O2_Dconc)
 hold on
-% plot(state.time/10e5,state.fanoxicsurf)
-% hold on
+plot(state.time/10e5,state.O2_Sconc)
+hold on
+plot(state.time/10e5,state.O2_DPconc)
+hold on
 box on
-xlabel('Time (Ma)'),ylabel('fanoxic'),legend('proximal anoxic','distal anoxic','surface anoxic')
+xlabel('Time (Ma)'),ylabel('O2 conc'),legend('proximal','distal','surface','deep ocean')
 %%
 
 %%%
