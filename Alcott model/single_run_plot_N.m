@@ -9,6 +9,7 @@ semilogy(state.time/10e5,state.NO3_DPconc)
 xlabel('Time (Ma)')
 ylabel('NO3 (mmol/L)')
 legend('NO3 (Prox)','NO3 (dist)','NO3 (surf)','NO3 (deep)')
+
 hold on
 box on
 %%
@@ -139,6 +140,7 @@ hold on
 box on
 
 
+print(gcf, 'myplot.emf', '-dmeta',"-r600");
 
 
 

@@ -9,8 +9,8 @@ CO2CI = real(sens.CO2atm.');
 O2ACI = real(sens.O2_A.');
 O2DPCI = real(sens.O2_DP.');
 Dist_Preac_BurialCI = real(sens.Dist_Preac_Burial.');
-SRP_DPCI = real(sens.SRP_DP.');
-fanoxicdistCI = real(sens.fanoxicdist.');
+SRP_DPCI = real(sens.SRP_DPconc.');
+FmocbCI = real(sens.Fmocb.');
 GASTCI = real(sens.GAST.');
 forgCI = real(sens.forg.');
 
@@ -21,7 +21,7 @@ O2A95quant = quantile(O2ACI,[0.05 0.95]);
 O2DP95quant = quantile(O2DPCI,[0.05 0.95]);
 Dist_Preac_Burial95quant = quantile(Dist_Preac_BurialCI,[0.05 0.95]);
 SRP_DP95quant = quantile(SRP_DPCI,[0.05 0.95]);
-fanoxicdist95quant = quantile(fanoxicdistCI,[0.05 0.95]);
+Fmocb95quant = quantile(FmocbCI,[0.05 0.95]);
 GAST95quant = quantile(GASTCI,[0.05 0.95]);
 forg95quant = quantile(forgCI,[0.05 0.95]);
 
@@ -32,7 +32,7 @@ O2A95median = quantile(O2ACI,[0.5]);
 O2DP95median = quantile(O2DPCI,[0.5]);
 Dist_Preac_Burial95median = quantile(Dist_Preac_BurialCI,[0.5]);
 SRP_DP95median = quantile(SRP_DPCI,[0.5]);
-fanoxicdist95median = quantile(fanoxicdistCI,[0.5]);
+Fmocb95median = quantile(FmocbCI,[0.5]);
 GAST95median = quantile(GASTCI,[0.5]);
 forg95median = quantile(forgCI,[0.5]);
 
@@ -72,6 +72,9 @@ plot((sens.time_myr),(d13C95quant),'linewidth',1,'color',c_range)
 xlim([-4e3 0]);
 ylim([-25 20])
 legend('calcite','dolomite','other')
+xlabel('Time (Ma)')
+ylabel('δ^{13}C (‰)')
+
 
 %CO2
 load('CO2proxy')
@@ -91,8 +94,9 @@ hold on
 semilogy(1e3*LowTime, LowCO2*1e6,'linewidth',2,'color','k')
 xlim([-4e3 0]);
 ylim([10 1e7]);
+xlabel('Time (Ma)')
+ylabel('CO2 (PPM) ')
 
-title('CO2')
 
 %Atmos O2
 load('AtmosO2proxy.mat')
@@ -113,7 +117,9 @@ hold on
 semilogy(AtmosO2proxtime, AtmosO2proxhigh,'linewidth',2,'color','k')
 xlim([-4e3 0]);
 ylim([1e-7 10])
-title('O2 atmosphere PAL')
+xlabel('Time (Ma)')
+ylabel('O2 atmosphere PAL')
+
 
 %O2 Deep
 subplot(4,2,4)
@@ -124,8 +130,8 @@ semilogy((sens.time_myr),(O2DP95quant/2.21e17),'linewidth',1,'color',c_range)
 xlim([-4e3 0]);
 ylim([1e-9 10])
 xlabel('Time (Ma)')
-ylabel('deep O2 relative')
-title('Relative O2 Deep')
+ylabel('deep O2 PAL')
+
 
 %P burial
 load('ReinhardPdata.mat')
@@ -159,33 +165,41 @@ plot((sens.time_myr),(Dist_Preac_Burial95quant),'linewidth',1,'color',c_range)
 ylim([1e7 1e13])
 
 xlim([-4e3 0]);
-title('Total P burial')
+xlabel('Time (Ma)')
+ylabel('Distal P burial (mol/yr)')
+
 
 %P deep
 subplot(4,2,6)
 box on
-semilogy((sens.time_myr),(SRP_DP95median/2790e12),'linewidth',3,'color',c_mean)
+semilogy((sens.time_myr),(SRP_DP95median),'linewidth',3,'color',c_mean)
 hold on
-semilogy((sens.time_myr),(SRP_DP95quant/2790e12),'linewidth',1,'color',c_range)
+semilogy((sens.time_myr),(SRP_DP95quant),'linewidth',1,'color',c_range)
 xlim([-4e3 0]);
-ylim([1e-3 5])
-title('P deep relative')
+%ylim([1e-3 5])
+xlabel('Time (Ma)')
+ylabel('SRP DPconc (mmol/L)')
 
 
-%fanoxic
+
+%Fmocb
 subplot(4,2,7)
-plot((sens.time_myr),(fanoxicdist95median),'linewidth',3,'color',c_mean)
+plot((sens.time_myr),(Fmocb95median),'linewidth',3,'color',c_mean)
 
 hold on
-plot((sens.time_myr),(fanoxicdist95quant),'linewidth',1,'color',c_range)
-title('fanoxicdist')
+plot((sens.time_myr),(Fmocb95quant),'linewidth',1,'color',c_range)
+
 xlim([-4e3 0]);
-ylim([0 1]);
+%ylim([0 1]);
+xlabel('Time (Ma)')
+ylabel('TOC burial (mol)')
 
 %Temperature
 subplot(4,2,8)
 plot((sens.time_myr),(GAST95median-273),'linewidth',3,'color',c_mean)
 hold on
 plot((sens.time_myr),(GAST95quant-273),'linewidth',1,'color',c_range)
-title('GAST')
+
 xlim([-4e3 0]);
+xlabel('Time (Ma)')
+ylabel('Global average surface temperature (℃)')

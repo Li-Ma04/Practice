@@ -111,7 +111,7 @@ pars.y(20) = starting.OP_DP ; %mol
 
 
 %% Nitrate and NH4
-starting.NO3_P = 1.6e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
+starting.NO3_P = 1.4e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
 starting.NO3_D = 5.5e13 ; %%mol (15/24 mmol/m3 * starting.Water_D /1000)
 starting.NO3_S = 6e14 ; %%mol (18/27 mmol/m3 * starting.Water_S /1000)
 starting.NO3_DP = 3.91e16 ; %%mol (35 mmol/m3 * starting.Water_DP /1000)
@@ -158,7 +158,7 @@ present.O2_S =1.6145e16 ;
 present.O2_P = 4.5e12 ;
 
 %%%%N Cycle
-present.NO3_P = 1.6e11 ; 
+present.NO3_P = 1.4e11 ; 
 present.NO3_D = 5.5e13 ; 
 present.NO3_S = 6e14 ;
 present.NO3_DP = 3.91e16 ;
@@ -458,20 +458,34 @@ basfrac = 0.3 ;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
         %%%%%%% parameter space to test
-        sensparams.D = 0.25 + 0.5*(2-0.25); 
+%         sensparams.D = 0.25 + 0.5*(2-0.25); 
+% 
+%         sensparams.fbiota =  0.15 + 0.5*(1-0.15);
+% 
+%         sensparams.C = 0.25 + 0.5*(3-0.25) ; 
+%         
+%         sensparams.CP = pars.CPoxic + 0.5*(1100-pars.CPoxic) ; 
+% 
+%         sensparams.EXP = 0.1 + 0.5* (0.75-0.1) ;
+% 
+%         sensparams.EXP2 = sensparams.EXP + 0.5* (1-sensparams.EXP) ;
+% 
+%         sensparams.EXPtiming = 1.7 + 0.5*(3-1.7);
 
-        sensparams.fbiota =  0.15 + 0.5*(1-0.15);
+       
+        sensparams.D = 0.25 + rand*(2-0.25); 
 
-        sensparams.C = 0.25 + 0.5*(3-0.25) ; 
+        sensparams.fbiota =  0.15 + rand*(1-0.15);
+
+        sensparams.C = 0.25 + rand*(3-0.25) ; 
         
-        sensparams.CP = pars.CPoxic + 0.5*(1100-pars.CPoxic) ; 
+        sensparams.CP = pars.CPoxic + rand*(1100-pars.CPoxic) ; 
 
-        sensparams.EXP = 0.1 + 0.5* (0.75-0.1) ;
+        sensparams.EXP = 0.1 + rand* (0.75-0.1) ;
 
-        sensparams.EXP2 = sensparams.EXP + 0.5* (1-sensparams.EXP) ;
+        sensparams.EXP2 = sensparams.EXP + rand*(1-sensparams.EXP) ;
 
-        sensparams.EXPtiming = 1.7 + 0.5*(3-1.7);
-
+        sensparams.EXPtiming = 1.7 + rand*(3-1.7);
 
 
 
@@ -504,10 +518,10 @@ fprintf('Done: ')
 endtime = toc ;
 fprintf('time (s): %d \n', endtime )
 
-  single_run_plot
-  single_run_plot_N
-% % % single_run_plot_NO3
-% % % single_run_plot_NH4
-  single_run_plot_limit
+    % single_run_plot
+%    single_run_plot_N
+% % % % single_run_plot_NO3
+% % % % single_run_plot_NH4
+%    single_run_plot_limit
 
 

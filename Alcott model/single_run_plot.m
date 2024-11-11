@@ -8,7 +8,7 @@ hold on
 box on
 %%
 subplot(4,4,2)
-plot(state.time/10e5,state.CO2atm/10e-7)
+plot(state.time/10e5,state.CO2atm*1e6)
 xlabel('Time (Ma)')
 ylabel('CO_{2} (ppm)')
 hold on

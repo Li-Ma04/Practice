@@ -58,6 +58,9 @@ semilogy(state.time/10e5, log10(state.P_change), 'r', 'DisplayName', 'P'); % P_c
 semilogy(state.time/10e5, log10(state.D_change), 'g', 'DisplayName', 'D'); % D_change 使用绿色
 semilogy(state.time/10e5, log10(state.S_change), 'b', 'DisplayName', 'S'); % S_change 使用蓝色
 semilogy(state.time/10e5, log10(state.DP_change), 'm', 'DisplayName', 'DP'); % DP_change 使用洋红色
+yline(log10(16), '--k', 'LineWidth', 2);
+
+
 hold off;
 
 % 添加标签和标题
@@ -83,4 +86,4 @@ title('Bioavailability N Over Time');
 legend('Location', 'best'); % 显示图例
 grid on;
 
-
+print(gcf, 'myplot.emf', '-dmeta',"-r600");
