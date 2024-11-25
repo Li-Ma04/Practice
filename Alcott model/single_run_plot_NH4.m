@@ -9,11 +9,12 @@ colors = [
     0 0 1;   % 蓝色
     0 1 1;   % 青色
     1 0 1;   % 洋红色
-    1 1 0;   % 黄色
+    1 1 0;
+    0.5 0.5 0.5;% 黄色
 ];
 
 % 前两条线为虚线
-p1 = semilogy(state.time/10e5, state.River_NH4, 'LineStyle', '--', 'Color', colors(1,:));
+%p1 = semilogy(state.time/10e5, state.River_NH4, 'LineStyle', '--', 'Color', colors(1,:));
 hold on;
 p2 = semilogy(state.time/10e5, state.NH4_P_D, 'LineStyle', '--', 'Color', colors(2,:));
 
@@ -29,7 +30,7 @@ ylabel('NH4 proximal ');
 box on;
 
 % 使用图例，将 `state` 后面的信息作为图例项
-legend({'River NH4', 'NH4 P D', 'PON Min P', 'NH4 PP P', 'NH4 Nfix P', 'NO3 Nitri P'});
+legend({ 'NH4 P D', 'PON Min P', 'NH4 PP P', 'NH4 Nfix P', 'NO3 Nitri P'});
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 subplot(2,2,2)
@@ -42,19 +43,20 @@ colors = [
     0 1 1;   % 青色
     1 0 1;   % 洋红色
     1 1 0;   % 黄色
+    0.5 0.5 0.5;
 ];
 
 % 前三条线为虚线，且颜色与前面保持一致，不与同图的其他线条重复
-p1 = semilogy(state.time/10e5, state.NH4_P_D, 'LineStyle', '--', 'Color', colors(2,:)); % 绿色，与前面一致
+p1 = semilogy(state.time/10e5, state.NH4_P_D, 'LineStyle', '--', 'Color', colors(1,:)); % 绿色，与前面一致
 hold on;
-p2 = semilogy(state.time/10e5, state.NH4_D_S, 'LineStyle', '--', 'Color', colors(3,:)); % 蓝色，不与同图其他线重复
-p3 = semilogy(state.time/10e5, state.NH4_DP_D, 'LineStyle', '--', 'Color', colors(4,:)); % 青色，不与同图其他线重复
+p2 = semilogy(state.time/10e5, state.NH4_D_S, 'LineStyle', '--', 'Color', colors(2,:)); % 蓝色，不与同图其他线重复
+p3 = semilogy(state.time/10e5, state.NH4_DP_D, 'LineStyle', '--', 'Color', colors(7,:)); % 青色，不与同图其他线重复
 
 % 后四条线为实线，且颜色不重复
-p4 = semilogy(state.time/10e5, state.PON_Min_D, 'LineStyle', '-', 'Color', colors(5,:));  % 洋红色，不与同图其他线重复
-p5 = semilogy(state.time/10e5, state.NH4_PP_D, 'LineStyle', '-', 'Color', colors(6,:));  % 黄色，不与同图其他线重复
-p6 = semilogy(state.time/10e5, state.NH4_Nfix_D, 'LineStyle', '-', 'Color', colors(1,:));  % 红色，不与同图其他线重复
-p7 = semilogy(state.time/10e5, state.NO3_Nitri_D, 'LineStyle', '-', 'Color', [0.5 0.5 0.5]);  % 新颜色，灰色
+p4 = semilogy(state.time/10e5, state.PON_Min_D, 'LineStyle', '-', 'Color', colors(3,:));  % 洋红色，不与同图其他线重复
+p5 = semilogy(state.time/10e5, state.NH4_PP_D, 'LineStyle', '-', 'Color', colors(4,:));  % 黄色，不与同图其他线重复
+p6 = semilogy(state.time/10e5, state.NH4_Nfix_D, 'LineStyle', '-', 'Color', colors(5,:));  % 红色，不与同图其他线重复
+p7 = semilogy(state.time/10e5, state.NO3_Nitri_D, 'LineStyle', '-', 'Color', colors(6,:));  % 新颜色，灰色
 
 % 添加标签和盒线
 xlabel('Time (Ma)');
@@ -78,19 +80,20 @@ colors = [
     0 1 1;   % 青色
     1 0 1;   % 洋红色
     1 1 0;   % 黄色
+    0.5 0.5 0.5;
 ];
 
 % 前三条线为虚线，且颜色与前面保持一致，不与同图的其他线条重复
-p1 = semilogy(state.time/10e5, state.NH4_D_S, 'LineStyle', '--', 'Color', colors(3,:)); % 蓝色，与前面保持一致
+p1 = semilogy(state.time/10e5, state.NH4_D_S, 'LineStyle', '--', 'Color', colors(1,:)); % 蓝色，与前面保持一致
 hold on;
-p2 = semilogy(state.time/10e5, state.NH4_S_DP, 'LineStyle', '--', 'Color', colors(1,:)); % 红色，避免重复
-p3 = semilogy(state.time/10e5, state.NH4_DP_S, 'LineStyle', '--', 'Color', colors(2,:)); % 绿色，避免重复
+p2 = semilogy(state.time/10e5, state.NH4_S_DP, 'LineStyle', '--', 'Color', colors(2,:)); % 红色，避免重复
+p3 = semilogy(state.time/10e5, state.NH4_DP_S, 'LineStyle', '--', 'Color', colors(7,:)); % 绿色，避免重复
 
 % 后四条线为实线，且颜色不重复
-p4 = semilogy(state.time/10e5, state.PON_Min_S, 'LineStyle', '-', 'Color', colors(4,:));  % 青色，避免重复
-p5 = semilogy(state.time/10e5, state.NH4_PP_S, 'LineStyle', '-', 'Color', colors(5,:));  % 洋红色，与前面保持一致
-p6 = semilogy(state.time/10e5, state.NH4_Nfix_S, 'LineStyle', '-', 'Color', colors(6,:));  % 黄色，与前面保持一致
-p7 = semilogy(state.time/10e5, state.NO3_Nitri_S, 'LineStyle', '-', 'Color', [0.5 0.5 0.5]);  % 新颜色，灰色，避免重复
+p4 = semilogy(state.time/10e5, state.PON_Min_S, 'LineStyle', '-', 'Color', colors(3,:));  % 青色，避免重复
+p5 = semilogy(state.time/10e5, state.NH4_PP_S, 'LineStyle', '-', 'Color', colors(4,:));  % 洋红色，与前面保持一致
+p6 = semilogy(state.time/10e5, state.NH4_Nfix_S, 'LineStyle', '-', 'Color', colors(5,:));  % 黄色，与前面保持一致
+p7 = semilogy(state.time/10e5, state.NO3_Nitri_S, 'LineStyle', '-', 'Color', colors(6,:));  % 新颜色，灰色，避免重复
 
 % 添加标签和盒线
 xlabel('Time (Ma)');
@@ -111,6 +114,7 @@ colors = [
     0 1 1;   % 青色
     1 0 1;   % 洋红色
     1 1 0;   % 黄色
+    0.5 0.5 0.5;
 ];
 
 % 前两条线为虚线，且颜色与前面保持一致，不与同图的其他线条重复
@@ -119,9 +123,9 @@ hold on;
 p2 = semilogy(state.time/10e5, state.NH4_DP_S, 'LineStyle', '--', 'Color', colors(2,:)); % 绿色，与前面保持一致
 
 % 后三条线为实线，且颜色不重复
-p3 = semilogy(state.time/10e5, state.NH4_DP_D, 'LineStyle', '--', 'Color', colors(3,:));  % 蓝色，保持一致
-p4 = semilogy(state.time/10e5, state.PON_Min_DP, 'LineStyle', '-', 'Color', colors(4,:));  % 青色，保持一致
-p5 = semilogy(state.time/10e5, state.NO3_Nitri_DP, 'LineStyle', '-', 'Color', [0.5 0.5 0.5]);  % 灰色，避免重复
+p3 = semilogy(state.time/10e5, state.NH4_DP_D, 'LineStyle', '--', 'Color', colors(7,:));  % 蓝色，保持一致
+p4 = semilogy(state.time/10e5, state.PON_Min_DP, 'LineStyle', '-', 'Color', colors(3,:));  % 青色，保持一致
+p5 = semilogy(state.time/10e5, state.NO3_Nitri_DP, 'LineStyle', '-', 'Color', colors(6,:));  % 灰色，避免重复
 
 % 添加标签和盒线
 xlabel('Time (Ma)');

@@ -76,6 +76,8 @@ xlabel('Time (Ma)')
 ylabel('δ^{13}C (‰)')
 
 
+
+
 %CO2
 load('CO2proxy')
 
@@ -203,3 +205,4 @@ plot((sens.time_myr),(GAST95quant-273),'linewidth',1,'color',c_range)
 xlim([-4e3 0]);
 xlabel('Time (Ma)')
 ylabel('Global average surface temperature (℃)')
+

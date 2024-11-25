@@ -7,7 +7,7 @@
 NH4_Nfix_SCI = real(sens.NH4_Nfix_S.');
 NO3_Nitri_SCI = real(sens.NO3_Nitri_S.');
 NO3_denit_SCI = real(sens.NO3_denit_S.');
-Atmos_WeatherCI = real(sens.Atmos_Weather.');
+d15NCI = real(sens.d15N.');
 O2_PconcCI = real(sens.O2_Pconc.');
 O2_DconcCI = real(sens.O2_Dconc.');
 O2_SconcCI = real(sens.O2_Sconc.');
@@ -18,7 +18,7 @@ O2_DPconcCI = real(sens.O2_DPconc.');
 NH4_Nfix_S95quant = quantile(NH4_Nfix_SCI,[0.05 0.95]);
 NO3_Nitri_S95quant = quantile(NO3_Nitri_SCI,[0.05 0.95]);
 NO3_denit_S95quant = quantile(NO3_denit_SCI,[0.05 0.95]);
-Atmos_Weather95quant = quantile(Atmos_WeatherCI,[0.05 0.95]);
+d15N95quant = quantile(d15NCI,[0.05 0.95]);
 O2_Pconc95quant = quantile(O2_PconcCI,[0.05 0.95]);
 O2_Dconc95quant = quantile(O2_DconcCI,[0.05 0.95]);
 O2_Sconc95quant = quantile(O2_SconcCI,[0.05 0.95]);
@@ -29,7 +29,7 @@ O2_DPconc95quant = quantile(O2_DPconcCI,[0.05 0.95]);
 NH4_Nfix_S95median = quantile(NH4_Nfix_SCI,[0.5]);
 NO3_Nitri_S95median = quantile(NO3_Nitri_SCI,[0.5]);
 NO3_denit_S95median = quantile(NO3_denit_SCI,[0.5]);
-Atmos_Weather95median = quantile(Atmos_WeatherCI,[0.5]);
+d15N95median = quantile(d15NCI,[0.5]);
 O2_Pconc95median = quantile(O2_PconcCI,[0.5]);
 O2_Dconc95median = quantile(O2_DconcCI,[0.5]);
 O2_Sconc95median = quantile(O2_SconcCI,[0.5]);
@@ -91,13 +91,26 @@ box on
 xlabel('Time (Ma)'),ylabel('Surface denitrification (mol)')
 
 %O2 Deep
+
+load('15N.mat')
+d15Ntime = -1 * data(:,1);
+d15Norg = data(:,2);
+d15Nbulk = data(:,3);
+
+
 subplot(4,2,4)
-plot((sens.time_myr),(Atmos_Weather95median),'linewidth',3,'color',c_mean)
+scatter(d15Ntime, d15Norg,5,'o')
 hold on
-plot((sens.time_myr),(Atmos_Weather95quant),'linewidth',1,'color',c_range)
+scatter(d15Ntime, d15Nbulk,5,'+')
+hold on
+plot((sens.time_myr),(d15N95median),'linewidth',3,'color',c_mean)
+hold on
+plot((sens.time_myr),(d15N95quant),'linewidth',1,'color',c_range)
 hold on
 box on
-xlabel('Time (Ma)'),ylabel('Oxidative Weathering (mol)')
+xlim([-4e3 0]);
+legend('org','bulk')
+xlabel('Time (Ma)'),ylabel('δ^{15}N (‰)')
 
 %P burial
 

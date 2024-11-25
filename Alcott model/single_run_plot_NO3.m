@@ -45,12 +45,12 @@ colors = [
 p1 = semilogy(state.time/10e5, state.NO3_P_D, 'LineStyle', '--', 'Color', colors(1,:)); % 红色
 hold on;
 p2 = semilogy(state.time/10e5, state.NO3_D_S, 'LineStyle', '--', 'Color', colors(2,:)); % 绿色
-p3 = semilogy(state.time/10e5, state.NO3_DP_D, 'LineStyle', '--', 'Color', colors(3,:)); % 蓝色
+p3 = semilogy(state.time/10e5, state.NO3_DP_D, 'LineStyle', '--', 'Color', colors(6,:)); % 蓝色
 
 % 后三条线为实线
-p4 = semilogy(state.time/10e5, state.NO3_denit_D, 'LineStyle', '-', 'Color', colors(4,:)); % 青色
-p5 = semilogy(state.time/10e5, state.NO3_Nitri_D, 'LineStyle', '-', 'Color', colors(5,:)); % 洋红色
-p6 = semilogy(state.time/10e5, state.NO3_PP_D, 'LineStyle', '-', 'Color', colors(6,:));   % 黄色
+p4 = semilogy(state.time/10e5, state.NO3_denit_D, 'LineStyle', '-', 'Color', colors(3,:)); % 青色
+p5 = semilogy(state.time/10e5, state.NO3_Nitri_D, 'LineStyle', '-', 'Color', colors(4,:)); % 洋红色
+p6 = semilogy(state.time/10e5, state.NO3_PP_D, 'LineStyle', '-', 'Color', colors(5,:));   % 黄色
 
 % 添加标签、图例和盒线
 xlabel('Time (Ma)');
@@ -75,12 +75,12 @@ colors = [
 p1 = semilogy(state.time/10e5, state.NO3_D_S, 'LineStyle', '--', 'Color', colors(1,:)); % 红色
 hold on;
 p2 = semilogy(state.time/10e5, state.NO3_S_DP, 'LineStyle', '--', 'Color', colors(2,:)); % 绿色
-p3 = semilogy(state.time/10e5, state.NO3_DP_S, 'LineStyle', '--', 'Color', colors(3,:)); % 蓝色
+p3 = semilogy(state.time/10e5, state.NO3_DP_S, 'LineStyle', '--', 'Color', colors(6,:)); % 蓝色
 
 % 后三条线为实线
-p4 = semilogy(state.time/10e5, state.NO3_denit_S, 'LineStyle', '-', 'Color', colors(4,:)); % 青色
-p5 = semilogy(state.time/10e5, state.NO3_Nitri_S, 'LineStyle', '-', 'Color', colors(5,:)); % 洋红色
-p6 = semilogy(state.time/10e5, state.NO3_PP_S, 'LineStyle', '-', 'Color', colors(6,:));   % 黄色
+p4 = semilogy(state.time/10e5, state.NO3_denit_S, 'LineStyle', '-', 'Color', colors(3,:)); % 青色
+p5 = semilogy(state.time/10e5, state.NO3_Nitri_S, 'LineStyle', '-', 'Color', colors(4,:)); % 洋红色
+p6 = semilogy(state.time/10e5, state.NO3_PP_S, 'LineStyle', '-', 'Color', colors(5,:));   % 黄色
 
 % 添加标签、图例和盒线
 xlabel('Time (Ma)');
@@ -105,11 +105,11 @@ colors = [
 p1 = semilogy(state.time/10e5, state.NO3_S_DP, 'LineStyle', '--', 'Color', colors(1,:)); % 红色虚线
 hold on;
 p2 = semilogy(state.time/10e5, state.NO3_DP_S, 'LineStyle', '--', 'Color', colors(2,:)); % 绿色虚线
-p3 = semilogy(state.time/10e5, state.NO3_DP_D, 'LineStyle', '--', 'Color', colors(3,:)); % 蓝色虚线
+p3 = semilogy(state.time/10e5, state.NO3_DP_D, 'LineStyle', '--', 'Color', colors(6,:)); % 蓝色虚线
 
 % 后两条线为实线
-p4 = semilogy(state.time/10e5, state.NO3_denit_DP, 'LineStyle', '-', 'Color', colors(4,:)); % 青色实线
-p5 = semilogy(state.time/10e5, state.NO3_Nitri_DP, 'LineStyle', '-', 'Color', colors(5,:)); % 洋红色实线
+p4 = semilogy(state.time/10e5, state.NO3_denit_DP, 'LineStyle', '-', 'Color', colors(3,:)); % 青色实线
+p5 = semilogy(state.time/10e5, state.NO3_Nitri_DP, 'LineStyle', '-', 'Color', colors(4,:)); % 洋红色实线
 
 % 添加标签、图例和盒线
 xlabel('Time (Ma)');

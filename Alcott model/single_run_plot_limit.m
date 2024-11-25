@@ -81,7 +81,7 @@ hold off;
 
 % 添加标签和标题
 xlabel('Time');
-ylabel('mol');
+ylabel('mol(log10)');
 title('Bioavailability N Over Time');
 legend('Location', 'best'); % 显示图例
 grid on;
