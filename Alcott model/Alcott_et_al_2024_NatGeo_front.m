@@ -119,6 +119,16 @@ starting.NH4_P = 1.44e10 ; %%mol (0.4 mmol/m3 * starting.Water_P /1000)  %note: 
 starting.NH4_D = 0.72e12 ; %%mol (0.2 mmol/m3 * starting.Water_D /1000)           Except for the Black Sea, which is deep because of lack of oxygen. Ammonia concentration can reach 50mmol/m3,  
 starting.NH4_S = 3.62e12 ; %%mol (0.07 mmol/m3 * starting.Water_S /1000)
 starting.NH4_DP = 0.013e15 ; %%mol (0.01 mmol/m3 * starting.Water_DP /1000)
+starting.NO3_15N_P = 5 ; 
+starting.NO3_15N_D = 5 ;
+starting.NO3_15N_S = 5 ;
+starting.NO3_15N_DP = 5 ; 
+starting.NH4_15N_P = 0.5 ; 
+starting.NH4_15N_D = 0.2 ;
+starting.NH4_15N_S = 0.0001 ;
+starting.NH4_15N_DP = 0.0001 ;
+% starting.NO3_15N = 0 ;
+% starting.NH4_15N = 0 ;
 %%%%
 pars.y(24) = starting.NO3_P ; 
 pars.y(25) = starting.NO3_D ; 
@@ -128,9 +138,20 @@ pars.y(28) = starting.NH4_P ;
 pars.y(29) = starting.NH4_D ; 
 pars.y(30) = starting.NH4_S ; 
 pars.y(31) = starting.NH4_DP ; 
-pars.y(32) = starting.NO3_P + starting.NO3_D + starting.NO3_S+ starting.NO3_DP+ starting.NH4_P+ starting.NH4_D+ starting.NH4_S+ starting.NH4_DP; 
-pars.y(33) = 4.5 ; 
 
+pars.y(32) = starting.NO3_15N_P ; 
+pars.y(33) = starting.NO3_15N_D ; 
+pars.y(34) = starting.NO3_15N_S ; 
+pars.y(35) = starting.NO3_15N_DP ; 
+pars.y(36) = starting.NH4_15N_P ; 
+pars.y(37) = starting.NH4_15N_D ; 
+pars.y(38) = starting.NH4_15N_S ; 
+pars.y(39) = starting.NH4_15N_DP ;
+
+% pars.y(32) = starting.NO3_P + starting.NO3_D + starting.NO3_S + starting.NO3_DP; 
+ %pars.y(40) = starting.NH4_P + starting.NH4_D + starting.NH4_S + starting.NH4_DP ; 
+% pars.y(34) = starting.NO3_15N ; 
+% pars.y(35) = starting.NH4_15N ; 
 
 
 %% COPSE Carbon
@@ -520,11 +541,11 @@ fprintf('Done: ')
 endtime = toc ;
 fprintf('time (s): %d \n', endtime )
 
-       single_run_plot
-         single_run_plot_N
-% % % % % % %  single_run_plot_NO3
-% % % % % % %  single_run_plot_NH4
-       single_run_plot_limit
- single_run_plot_15N
+%        single_run_plot
+%          single_run_plot_N
+% % % % % % % %  single_run_plot_NO3
+% % % % % % % %  single_run_plot_NH4
+%        single_run_plot_limit
+  single_run_plot_15N
 
 
