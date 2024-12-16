@@ -64,11 +64,11 @@ hold on
 box on
 %%
 subplot(3,3,6)
-semilogy(state.time/10e5,state.PON_Min_P)
+plot(state.time/10e5,state.PON_Min_P)
 hold on
-semilogy(state.time/10e5,state.PON_Min_D)
-semilogy(state.time/10e5,state.PON_Min_S)
-semilogy(state.time/10e5,state.PON_Min_DP)
+plot(state.time/10e5,state.PON_Min_D)
+plot(state.time/10e5,state.PON_Min_S)
+plot(state.time/10e5,state.PON_Min_DP)
 
 xlabel('Time (Ma)')
 ylabel('Norg mineralization(mol)')
@@ -78,10 +78,10 @@ box on
 
 %%
 subplot(3,3,7)
-semilogy(state.time/10e5,state.N_PP_P)
+plot(state.time/10e5,state.N_PP_P)
 hold on
-semilogy(state.time/10e5,state.N_PP_D)
-semilogy(state.time/10e5,state.N_PP_S)
+plot(state.time/10e5,state.N_PP_D)
+plot(state.time/10e5,state.N_PP_S)
 
 
 xlabel('Time (Ma)')

@@ -123,11 +123,11 @@ starting.NO3_15N_P = 5 ;
 starting.NO3_15N_D = 5 ;
 starting.NO3_15N_S = 5 ;
 starting.NO3_15N_DP = 5 ; 
-starting.NH4_15N_P = 2 ; 
-starting.NH4_15N_D = 1 ;
-starting.NH4_15N_S = 0.0001 ;
-starting.NH4_15N_DP = 0.0001 ;
-starting.N_15N = 5 ;
+starting.NH4_15N_P = 1.5 ; 
+starting.NH4_15N_D = 0.01 ;
+starting.NH4_15N_S = 7.3e-5 ;
+starting.NH4_15N_DP = 7.3e-5  ;
+starting.N_15N = 4.825 ;
 % starting.NO3_15N = 0 ;
 % starting.NH4_15N = 0 ;
 %%%%
@@ -149,7 +149,7 @@ pars.y(37) = starting.NH4_15N_D ;
 pars.y(38) = starting.NH4_15N_S ; 
 pars.y(39) = starting.NH4_15N_DP ;
 pars.y(40) = starting.NO3_P + starting.NO3_D + starting.NO3_S + starting.NO3_DP + starting.NH4_P + starting.NH4_D + starting.NH4_S + starting.NH4_DP;
-pars.y(41) = 5;
+pars.y(41) = starting.N_15N;
 % pars.y(41) = starting.NO3_P + starting.NO3_D + starting.NO3_S + starting.NO3_DP; 
 %pars.y(42) = starting.NH4_P + starting.NH4_D + starting.NH4_S + starting.NH4_DP ; 
 % pars.y(34) = starting.NO3_15N ; 
@@ -543,11 +543,11 @@ fprintf('Done: ')
 endtime = toc ;
 fprintf('time (s): %d \n', endtime )
 
-%        single_run_plot
-%          single_run_plot_N
-% % % % % % % %  single_run_plot_NO3
-% % % % % % % %  single_run_plot_NH4
-%        single_run_plot_limit
-  single_run_plot_15N
+%  %      single_run_plot
+            single_run_plot_N
+% % % % % % % % % % %  single_run_plot_NO3
+% % % % % % % % % % %  single_run_plot_NH4
+% %      %  single_run_plot_limit
+    single_run_plot_15N
 
 
