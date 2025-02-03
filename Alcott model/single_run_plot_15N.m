@@ -11,7 +11,7 @@ hold on
 scatter(d15Ntime, d15Nbulk,5,'+')
 hold on
 
-plot(state.time/10e5, state.NO3_15N_P, 'r', 'DisplayName', 'P');
+plot(state.time/10e5, state.totalN_P, 'r', 'DisplayName', 'P');
 
 hold off;
 
@@ -25,7 +25,7 @@ grid on;
 
 subplot(2, 5, 2); % 第二行
 hold on; % 保持图像
-plot(state.time/10e5, state.NO3_15N_D, 'r', 'DisplayName', 'P');
+plot(state.time/10e5, state.N_15N_P, 'r', 'DisplayName', 'P');
 
 hold off;
 
@@ -36,7 +36,7 @@ grid on;
 %%%%%%%%%%%%%%
 subplot(2, 5, 3); % 第二行
 hold on; % 保持图像
-plot(state.time/10e5, state.NO3_15N_S, 'r', 'DisplayName', 'P');
+plot(state.time/10e5, state.totalN_D, 'r', 'DisplayName', 'P');
 
 hold off;
 
@@ -47,7 +47,7 @@ grid on;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 subplot(2, 5, 4); % 第二行
 hold on; % 保持图像
-plot(state.time/10e5, state.NO3_15N_DP, 'r', 'DisplayName', 'P');
+plot(state.time/10e5, state.N_15N_D, 'r', 'DisplayName', 'P');
 
 hold off;
 
@@ -58,7 +58,7 @@ grid on;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 subplot(2, 5, 5); % 第二行
 hold on; % 保持图像
-plot(state.time/10e5, state.NH4_15N_P, 'r', 'DisplayName', 'P');
+plot(state.time/10e5, state.totalN_S, 'r', 'DisplayName', 'P');
 
 hold off;
 
@@ -69,7 +69,7 @@ grid on;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 subplot(2, 5, 6); % 第二行
 hold on; % 保持图像
-plot(state.time/10e5, state.NH4_15N_D, 'r', 'DisplayName', 'P');
+plot(state.time/10e5, state.N_15N_S, 'r', 'DisplayName', 'P');
 
 hold off;
 
@@ -80,7 +80,7 @@ grid on;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 subplot(2, 5, 7); % 第二行
 hold on; % 保持图像
-plot(state.time/10e5, state.NH4_15N_S, 'r', 'DisplayName', 'P');
+plot(state.time/10e5, state.totalN_DP, 'r', 'DisplayName', 'P');
 
 hold off;
 
@@ -91,7 +91,7 @@ grid on;
 %%%%%%%%%%%%%%%%%%%%%%%%%
 subplot(2, 5, 8); % 第二行
 hold on; % 保持图像
-plot(state.time/10e5, state.NH4_15N_DP, 'r', 'DisplayName', 'P');
+plot(state.time/10e5, state.N_15N_DP, 'r', 'DisplayName', 'P');
 
 hold off;
 

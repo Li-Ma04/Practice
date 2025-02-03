@@ -141,3 +141,4 @@ plot((sens.time_myr),(N_DP95quant),'linewidth',1,'color',c_range)
 hold on
 box on
 xlabel('Time (Ma)'),ylabel('Bioavailable N in DP box (mol)')
+exportgraphics(gcf, 'Figure.pdf', 'ContentType', 'vector');

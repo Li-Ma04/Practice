@@ -51,19 +51,19 @@ hold on
 box on
 %%
 subplot(3,3,5)
-semilogy(state.time/10e5,state.NO3_denit_P)
+semilogy(state.time/10e5,state.NO3_denit_P_water)
 hold on
-semilogy(state.time/10e5,state.NO3_denit_D)
-semilogy(state.time/10e5,state.NO3_denit_S)
-semilogy(state.time/10e5,state.NO3_denit_DP)
+semilogy(state.time/10e5,state.NO3_denit_D_water)
+%semilogy(state.time/10e5,state.NO3_denit_S_water)
+semilogy(state.time/10e5,state.NO3_denit_DP_water)
 
 xlabel('Time (Ma)')
-ylabel('denitrification(mol)')
-legend('Prox','dist','surf','deep')
+ylabel('Water denitrification(mol)')
+legend('Prox','dist','deep')
 hold on
 box on
 %%
-subplot(3,3,6)
+subplot(3,3,7)
 plot(state.time/10e5,state.PON_Min_P)
 hold on
 plot(state.time/10e5,state.PON_Min_D)
@@ -77,7 +77,7 @@ hold on
 box on
 
 %%
-subplot(3,3,7)
+subplot(3,3,8)
 plot(state.time/10e5,state.N_PP_P)
 hold on
 plot(state.time/10e5,state.N_PP_D)
@@ -114,16 +114,16 @@ box on
 % hold on
 % box on
 
-subplot(3,3,8)
-semilogy(state.time/10e5,state.total_marine_N)
+subplot(3,3,6)
+semilogy(state.time/10e5,state.NO3_denit_P_sediment)
 hold on
-semilogy(state.time/10e5,state.total_marine_denit)
-semilogy(state.time/10e5,state.total_marine_Nfix)
-semilogy(state.time/10e5,state.total_marine_Nitri)
+semilogy(state.time/10e5,state.NO3_denit_D_sediment)
+%semilogy(state.time/10e5,state.NO3_denit_S_sediment)
+semilogy(state.time/10e5,state.NO3_denit_DP_sediment)
 
 xlabel('Time (Ma)')
-ylabel('Total nitrogen(mol)')
-legend('Total N','Total denit','Total fix','Total nitri')
+ylabel('sediment denit(mol)')
+legend('Prox','dist','deep')
 hold on
 box on
 %%

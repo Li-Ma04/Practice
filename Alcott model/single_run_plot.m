@@ -15,14 +15,14 @@ hold on
 box on
 %%
 subplot(4,4,3)
-semilogy(state.time/10e5,state.O2_A/present.O2_A)
+semilogy(state.time/10e5,state.O2_A/3.7e19)
 xlabel('Time (Ma)')
 ylabel('O_{2} (atmosphere) (PAL)')
 hold on
 box on
 %%
 subplot(4,4,4)
-plot(state.time/10e5,state.O2_DP/present.O2_DP)
+plot(state.time/10e5,state.O2_DP/2.21e17)
 xlabel('Time (Ma)')
 ylabel('O_{2} (Deep ocean) (PAL)')
 hold on

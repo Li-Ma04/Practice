@@ -4,7 +4,7 @@
 %%%% model sensitivity analysis
 
 %%%%%% number of runs
-sensruns = 10 ;
+sensruns = 1000 ;
 
 %%%%%%% multiple runs
 parfor N = 1:sensruns
@@ -28,7 +28,11 @@ for N = 1:sensruns
 end
 
 %%%%%% plotting
-CIplots
-N1plots
-N2plots
-N3plots
+% CIplots
+% %N1plots
+% % N2plots
+% % N3plots
+%  %N4plots
+ N5plots
+ N6plots 
+ N7plots

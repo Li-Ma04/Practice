@@ -113,7 +113,7 @@ pars.y(20) = starting.OP_DP ; %mol
 %% Nitrate and NH4
 starting.NO3_P = 1.4e11 ; %%mol (11 mmol/m3 * starting.Water_P /1000)
 starting.NO3_D = 5.5e13 ; %%mol (15/24 mmol/m3 * starting.Water_D /1000)
-starting.NO3_S = 6e14 ; %%mol (18/27 mmol/m3 * starting.Water_S /1000)
+starting.NO3_S = 6.11e14 ; %%mol (18/27 mmol/m3 * starting.Water_S /1000)
 starting.NO3_DP = 3.9e16 ; %%mol (35 mmol/m3 * starting.Water_DP /1000)
 starting.NH4_P = 1.44e10 ; %%mol (0.4 mmol/m3 * starting.Water_P /1000)  %note: Because the modern ocean is in an aerobic state, ammonia is oxidized and the concentration is low. 
 starting.NH4_D = 0.72e12 ; %%mol (0.2 mmol/m3 * starting.Water_D /1000)           Except for the Black Sea, which is deep because of lack of oxygen. Ammonia concentration can reach 50mmol/m3,  
@@ -127,7 +127,7 @@ starting.NH4_15N_P = 1.5 ;
 starting.NH4_15N_D = 0.01 ;
 starting.NH4_15N_S = 7.3e-5 ;
 starting.NH4_15N_DP = 7.3e-5  ;
-starting.N_15N = 4.825 ;
+starting.N_15N = 4.845 ;
 % starting.NO3_15N = 0 ;
 % starting.NH4_15N = 0 ;
 %%%%
@@ -140,15 +140,15 @@ pars.y(29) = starting.NH4_D ;
 pars.y(30) = starting.NH4_S ; 
 pars.y(31) = starting.NH4_DP ; 
 
-pars.y(32) = starting.NO3_15N_P ; 
-pars.y(33) = starting.NO3_15N_D ; 
-pars.y(34) = starting.NO3_15N_S ; 
-pars.y(35) = starting.NO3_15N_DP ; 
-pars.y(36) = starting.NH4_15N_P ; 
-pars.y(37) = starting.NH4_15N_D ; 
-pars.y(38) = starting.NH4_15N_S ; 
-pars.y(39) = starting.NH4_15N_DP ;
-pars.y(40) = starting.NO3_P + starting.NO3_D + starting.NO3_S + starting.NO3_DP + starting.NH4_P + starting.NH4_D + starting.NH4_S + starting.NH4_DP;
+% pars.y(32) = starting.NO3_D + starting.NH4_D; 
+% pars.y(33) = 5 ; 
+% pars.y(34) = starting.NO3_D + starting.NH4_D ; 
+% pars.y(35) = 5 ; 
+% pars.y(36) = starting.NO3_S + starting.NH4_S ; 
+% pars.y(37) = 5 ; 
+% pars.y(38) = starting.NO3_DP + starting.NH4_DP; 
+% pars.y(39) = 5 ;
+pars.y(40) = 4.13e16;
 pars.y(41) = starting.N_15N;
 % pars.y(41) = starting.NO3_P + starting.NO3_D + starting.NO3_S + starting.NO3_DP; 
 %pars.y(42) = starting.NH4_P + starting.NH4_D + starting.NH4_S + starting.NH4_DP ; 
@@ -185,7 +185,7 @@ present.O2_P = 4.5e12 ;
 %%%%N Cycle
 present.NO3_P = 1.4e11 ; 
 present.NO3_D = 5.5e13 ; 
-present.NO3_S = 6e14 ;
+present.NO3_S = 6.11e14 ;
 present.NO3_DP = 3.9e16 ;
 present.NH4_P = 1.44e10 ; 
 present.NH4_D = 0.72e12 ; 
@@ -482,7 +482,7 @@ basfrac = 0.3 ;
 %%%%%%%%%%%%%%%%%   Sensitivity analysis   %%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-        %%%%%%% parameter space to test
+%         %%%%%%% parameter space to test
         sensparams.D = 0.25 + 0.5*(2-0.25); 
 
         sensparams.fbiota =  0.15 + 0.5*(1-0.15);
@@ -543,11 +543,13 @@ fprintf('Done: ')
 endtime = toc ;
 fprintf('time (s): %d \n', endtime )
 
-%  %      single_run_plot
-            single_run_plot_N
-% % % % % % % % % % %  single_run_plot_NO3
-% % % % % % % % % % %  single_run_plot_NH4
-% %      %  single_run_plot_limit
-    single_run_plot_15N
+ single_run_plot
+ single_run_plot_N
+% % % % % % % % % % % % % %  single_run_plot_NO3
+% % % % % % % % % % % % % %  single_run_plot_NH4
+ single_run_plot_limit
+% %single_run_plot_15N
+ single_run_plot_15N1
+ single_run_plot_total
 
 
